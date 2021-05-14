@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.cleansodoku.game.SudokuViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_gameBoard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="12dp"
+        android:orientation="vertical">
+
+
+        <!--subtitle game details-->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+
+            android:id="@+id/layout_gameDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_difficulty"
+                style="@style/subHeadingStyle"
+
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{viewmodel.gameDifficulty}"
+                tools:text="EASY" />
+
+            <TextView
+                android:id="@+id/tv_mistakes"
+                style="@style/subHeadingStyle"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{`Mistakes: `+viewmodel.mistakes.toString() +`/3`}"
+                tools:text="Mistakes: 0/3" />
+
+            <Chronometer
+
+                android:id="@+id/gameTimer"
+                style="@style/subHeadingStyle"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_baseline_timer"
+                android:drawablePadding="5dp"
+                android:gravity="left"
+                android:paddingStart="30dp"
+                android:textColor="@color/black" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.example.cleansodoku.game.SudokuBoardView
+
+            android:id="@+id/sudokuBoardView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_gameDetail" />
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layout_actionBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_numberDial">
+
+            <TextView
+                android:id="@+id/btnUndo"
+                style="@style/actionBtnStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_background"
+
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.restartBoard()}"
+                android:text="Restart"
+                app:drawableTopCompat="@drawable/ic_restart_black" />
+
+            <TextView
+                android:id="@+id/btnErase"
+
+                style="@style/actionBtnStyle"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:background="@drawable/btn_background"
+
+
+                android:onClick="@{()->viewmodel.clearCellValue()}"
+                android:text="Erase"
+                app:drawableTopCompat="@drawable/ic_eraser" />
+
+            <ToggleButton
+                android:id="@+id/btnNote"
+                style="@style/actionBtnStyle"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_background"
+
+                android:onClick="@{()->viewmodel.toggleNotes()}"
+                android:textOff="Notes:Off"
+
+                android:textOn="Notes:On"
+                app:drawableTopCompat="@drawable/edit_btn_state" />
+
+            <TextView
+                android:id="@+id/btnHint"
+
+                style="@style/actionBtnStyle"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_background"
+                android:onClick="@{()->viewmodel.showCellHint()}"
+                android:text="Hint"
+                app:drawableTopCompat="@drawable/lightbulb"
+                tools:text="hint" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layout_numberDial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            android:weightSum="9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sudokuBoardView">
+
+            <TextView
+                style="@style/numberTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.updateCellValue(1)}"
+                android:text="1" />
+
+            <TextView
+                style="@style/numberTextStyle"
+
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.updateCellValue(2)}"
+                android:text="2" />
+
+            <TextView
+                style="@style/numberTextStyle"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.updateCellValue(3)}"
+                android:text="3" />
+
+            <TextView
+                style="@style/numberTextStyle"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.updateCellValue(4)}"
+                android:text="4" />
+
+            <TextView
+                style="@style/numberTextStyle"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.updateCellValue(5)}"
+                android:text="5" />
+
+            <TextView
+                style="@style/numberTextStyle"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.updateCellValue(6)}"
+                android:text="6" />
+
+            <TextView
+                style="@style/numberTextStyle"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.updateCellValue(7)}"
+                android:text="7" />
+
+            <TextView
+                style="@style/numberTextStyle"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.updateCellValue(8)}"
+                android:text="8" />
+
+            <TextView
+                style="@style/numberTextStyle"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.updateCellValue(9)}"
+                android:text="9" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <FrameLayout
+            android:id="@+id/banner_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_actionBtn" />
+
+        <!--        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+        <!--            android:id="@+id/banner_ad"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"-->
+        <!--            ads:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            ads:layout_constraintTop_toBottomOf="@id/layout_actionBtn" />-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Clean SuDoKu</string>
+
+    <string name="btn_hint_ads">Watch Ad for 2 More Hints</string>
+    <string name="new_game_dialog_title">Current Game Progress will lost</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

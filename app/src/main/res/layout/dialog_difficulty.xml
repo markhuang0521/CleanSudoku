@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_bg_title"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/textBtnStyle"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Choose your Difficulty \n(Your current progress will be lost )" />
+
+        <TextView
+            android:id="@+id/btnDifficultyEasy"
+            style="@style/textBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Easy" />
+
+        <TextView
+            android:id="@+id/btnDifficultyMedium"
+
+            style="@style/textBtnStyle"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Medium" />
+
+        <TextView
+            android:id="@+id/btnDifficultyHard"
+
+            style="@style/textBtnStyle"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Hard" />
+
+        <TextView
+            android:id="@+id/btnDifficultyInsane"
+
+            style="@style/textBtnStyle"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Insane" />
+
+
+    </LinearLayout>
+</layout>
