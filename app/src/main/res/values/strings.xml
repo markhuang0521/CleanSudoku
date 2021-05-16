@@ -16,7 +16,8 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
 
-    <string name="setting_title_sound">Sound</string>
-    <string name="setting_sound_effect">Audio Effects</string>
-    <string name="setting_vibration_effect">Vibration</string>
+    <string name="setting_sound">Audio Effects</string>
+    <string name="setting_vibration">Vibration</string>
+    <string name="setting_timer">Display Timber</string>
+    <string name="setting_dark_theme">setting_dark_theme</string>
 </resources>

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.CleanSoDoKu" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.CleanSoDoKu" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -9,8 +9,77 @@
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSurface">@color/purple_500</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="titleFragmentBgTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:background">@drawable/gradient_bg_title_dark</item>
+
+    </style>
+
+    <style name="statFragmentBgTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:background">@drawable/gradient_bg_stat_dark</item>
+
+    </style>
+
+    <style name="newGameBtnTheme" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/gradient_btn_new_game_dark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:textColor">@color/purple_300</item>
+
+
+    </style>
+
+    <style name="continueGameBtnTheme" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/gradient_btn_continue_dark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:shadowRadius">5</item>
+
+    </style>
+
+    <style name="subHeadingStyle" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/roboto</item>
+
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="numberDialStyle" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/purple_500</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="actionBtnStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="btnStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:textColor">@color/white</item>
+
+
     </style>
 </resources>

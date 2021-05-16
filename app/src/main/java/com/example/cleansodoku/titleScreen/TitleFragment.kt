@@ -1,10 +1,7 @@
 package com.example.cleansodoku.titleScreen
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -60,6 +57,11 @@ class TitleFragment : Fragment() {
 
     private fun showContinueGame(binding: FragmentTitleBinding) {
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.game_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

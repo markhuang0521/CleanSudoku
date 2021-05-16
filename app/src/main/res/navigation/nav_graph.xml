@@ -48,10 +48,13 @@
         android:id="@+id/gameStaticsFragment"
         android:name="com.example.cleansodoku.statistics.GameStatisticsFragment"
         android:label="fragment_game_statics"
-        tools:layout="@layout/fragment_game_statics">
+        tools:layout="@layout/fragment_game_stat">
         <action
             android:id="@+id/action_gameStaticsFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
+        <action
+            android:id="@+id/action_gameStaticsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

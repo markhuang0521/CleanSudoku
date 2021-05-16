@@ -3,10 +3,7 @@ package com.example.cleansodoku.game
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.SystemClock
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Chronometer
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -46,10 +43,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
         removeBottomNav()
         setDisplayHomeAsUpEnabled(true)
         // ads
-        MobileAds.initialize(requireActivity()) {
-            Timber.d("ad stating")
-//            loadRewardAd()
-        }
+
 
         return binding.root
     }
@@ -57,7 +51,10 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        MobileAds.initialize(requireActivity()) {
+            Timber.d("ad stating")
+            loadRewardAd()
+        }
         setGameTimer()
         sudokuBoardView.setBoardTouchListener(this)
         binding.lifecycleOwner = this
@@ -65,9 +62,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
     }
 
     private fun loadRewardAd() {
-        MobileAds.initialize(requireActivity()) {
-            Timber.d("ad stating")
-        }
+
         var adRequest = AdRequest.Builder().build()
         if (rewardAd == null) {
             RewardedAd.load(
@@ -147,7 +142,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
         viewModel.mistakes.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if (it >= 3) {
+                if (it >= 13) {
                     AlertDialog.Builder(requireContext())
                         .setTitle("Game Over")
                         .setMessage("Oops, you Got 3 Strikes!")
@@ -198,7 +193,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
                 // update board view with user input and check is current cell correct
 
                 val isCorrect = viewModel.isSelectedCellCorrect()
-                binding.sudokuBoardView.updateBoard(it, isCorrect)
+                binding.sudokuBoardView.updateBoard(it, viewModel.solutionBoard.value)
                 if (viewModel.isBoardCompleted()) {
                     viewModel.setTimer(SystemClock.elapsedRealtime() - gameTimer.base)
                     viewModel.updateCurrentGame(isCompleted = true, isSucceed = true)
@@ -242,11 +237,20 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
     }
 
-    //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu, inflater)
-//        inflater.inflate(R.menu.game_menu, menu)
-//    }
-//
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.mediaPlayer?.let {
+            it.release()
+
+        }
+        viewModel.mediaPlayer = null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.game_menu, menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 

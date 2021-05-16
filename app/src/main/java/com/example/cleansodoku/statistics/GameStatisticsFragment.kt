@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.cleansodoku.databinding.FragmentGameStaticsBinding
+import com.example.cleansodoku.databinding.FragmentGameStatBinding
 import com.example.cleansodoku.game.SudokuViewModel
 import com.example.cleansodoku.utils.Difficulty
 import com.example.cleansodoku.utils.setToolbarTitle
@@ -16,7 +16,7 @@ import org.koin.android.ext.android.inject
 
 
 class GameStatisticsFragment : Fragment() {
-    private lateinit var binding: FragmentGameStaticsBinding
+    private lateinit var binding: FragmentGameStatBinding
     private lateinit var statisticsAdapter: StatisticsAdapter
     private val viewModel: SudokuViewModel by inject()
 
@@ -29,7 +29,7 @@ class GameStatisticsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentGameStaticsBinding.inflate(inflater, container, false)
+        binding = FragmentGameStatBinding.inflate(inflater, container, false)
         setToolbarTitle("Statistics")
         showBottomNav()
         return binding.root
@@ -61,5 +61,6 @@ class GameStatisticsFragment : Fragment() {
 
         })
     }
+
 
 }

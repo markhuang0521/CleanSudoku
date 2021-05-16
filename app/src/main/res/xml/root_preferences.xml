@@ -1,25 +1,34 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory app:title="">
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
+
             app:icon="@drawable/ic_volume_up_blue"
-            app:key="sound"
-            app:title="@string/setting_sound_effect" />
+            app:key="@string/setting_sound"
+            app:title="@string/setting_sound" />
         <SwitchPreferenceCompat
+            app:defaultValue="true"
+
             app:icon="@drawable/ic_vibration"
-            app:key="vibration"
-            app:title="@string/setting_vibration_effect" />
+            app:key="@string/setting_vibration"
+            app:title="@string/setting_vibration" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
             app:icon="@drawable/ic_timer_blue"
-            app:key="attachment"
+            app:key="@string/setting_timer"
 
-            app:title="Timer" />
+            app:title="@string/setting_timer" />
 
     </PreferenceCategory>
 
     <PreferenceCategory>
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_nightlight"
+            app:key="@string/setting_dark_theme"
+
+            app:title="Dark Mode" />
 
     </PreferenceCategory>
 

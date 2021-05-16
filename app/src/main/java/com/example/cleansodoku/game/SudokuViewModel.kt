@@ -1,7 +1,13 @@
 package com.example.cleansodoku.game
 
 import android.app.Application
+import android.content.Context
+import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.media.SoundPool
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,15 +17,21 @@ import com.example.cleansodoku.database.DbSudokuGame
 import com.example.cleansodoku.models.Cell
 import com.example.cleansodoku.models.Move
 import com.example.cleansodoku.models.SudokuGame
+import com.example.cleansodoku.settings.Setting
 import com.example.cleansodoku.statistics.GameStatistics
 import com.example.cleansodoku.utils.Difficulty
 import com.example.cleansodoku.utils.formatToTimeString
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import timber.log.Timber
 import java.text.DecimalFormat
 import java.util.*
 
-class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) : ViewModel() {
+
+class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) : ViewModel(),
+    KoinComponent {
+
     var gameBoard = MutableLiveData<Array<Array<Cell>>>()
     var solutionBoard = MutableLiveData<Array<Array<Cell>>>()
     var originalBoard = MutableLiveData<Array<Array<Cell>>>()
@@ -31,26 +43,33 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
     val gameId = MutableLiveData<Long>()
     val gameStatistic = MutableLiveData<GameStatistics>()
 
-    private var mediaPlayer: MediaPlayer? = null
+    var mediaPlayer: MediaPlayer? = null
+    lateinit var soundPool: SoundPool
+    var buttonClickSound: Int
+    var hintClickSound: Int
 
     private val isNoteOn = MutableLiveData<Boolean>(false)
     private var selectedRow = 0
     private var selectedCol = 0
     private val undoStack: Stack<Move> = Stack()
+    private val setting: Setting by inject()
+    private var vibrator: Vibrator
 
-    fun playButtonSound() {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(app.applicationContext, R.raw.click)
-            mediaPlayer!!.start()
-        } else mediaPlayer!!.start()
+    private fun playButtonSoundAndVibrate(soundId: Int) {
+        if (setting.sound) {
+            soundPool.play(soundId, 1F, 1F, 0, 0, 1F)
+        }
+        if (setting.vibration) {
+            if (Build.VERSION.SDK_INT >= 26) {
+                vibrator.vibrate(
+                    VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE)
+                )
+            } else {
+                vibrator.vibrate(200)
+            }
+        }
     }
 
-    fun playHintSound() {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(app.applicationContext, R.raw.hint_click)
-            mediaPlayer!!.start()
-        } else mediaPlayer!!.start()
-    }
 
     fun startNewGame(difficulty: Difficulty) {
 
@@ -82,12 +101,23 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
     }
 
     init {
+        val audioAttributes = AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .build()
+        vibrator = app.applicationContext?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+        soundPool = SoundPool.Builder()
+            .setAudioAttributes(audioAttributes)
+            .build()
+        buttonClickSound = soundPool.load(app.applicationContext, R.raw.click, 0)
+        hintClickSound = soundPool.load(app.applicationContext, R.raw.hint_click, 0)
         mediaPlayer = MediaPlayer.create(app.applicationContext, R.raw.click)
 
-        viewModelScope.launch {
-            sudokuGame.deleteAll()
-
-        }
+//        viewModelScope.launch {
+//            sudokuGame.deleteAll()
+//
+//        }
 
 
     }
@@ -180,9 +210,10 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
     }
 
     fun restartBoard() {
+        playButtonSoundAndVibrate(buttonClickSound)
+
         selectedCell.postValue(Cell(selectedRow, selectedCol, 0))
         gameBoard.postValue(sudokuGame.resetBoard())
-
 
     }
 
@@ -223,9 +254,8 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
     }
 
     fun toggleNotes() {
-        playButtonSound()
+        playButtonSoundAndVibrate(buttonClickSound)
         isNoteOn.value = !isNoteOn.value!!
-        Log.d("TAG", "toggleNotes: ${isNoteOn.value}")
     }
 
 
@@ -238,7 +268,7 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
 
 
     fun updateCellValue(num: Int) {
-        playButtonSound()
+        playButtonSoundAndVibrate(buttonClickSound)
         if (isNoteOn.value!!) {
 
             gameBoard.postValue(sudokuGame.addNotesForCurrentCell(selectedCell.value!!, num))
@@ -252,7 +282,7 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
     }
 
     fun clearCellValue() {
-        playButtonSound()
+        playButtonSoundAndVibrate(buttonClickSound)
         selectedCell.value = (Cell(selectedRow, selectedCol, 0))
         gameBoard.value = (sudokuGame.clearCell(selectedRow, selectedCol))
         Log.d("TAG", "clearCellValue: ${selectedCell.value?.notes}")
@@ -261,6 +291,7 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
     }
 
     fun showCellHint() {
+        playButtonSoundAndVibrate(hintClickSound)
         if (validPosition()) {
             val tempBoard = sudokuGame.showCellHint(selectedRow, selectedCol)
             selectedCell.postValue(tempBoard[selectedRow][selectedCol].copy())

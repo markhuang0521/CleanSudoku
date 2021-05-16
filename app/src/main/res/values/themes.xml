@@ -8,14 +8,50 @@
         <item name="colorPrimaryVariant">@color/darker_blue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondary">@color/light_blue</item>
         <item name="colorSecondaryVariant">@color/darker_accent</item>
         <item name="colorOnSecondary">@color/white</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
 
     </style>
+
+    <style name="titleFragmentBgTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:background">@drawable/gradient_bg_title</item>
+
+    </style>
+
+    <style name="statFragmentBgTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:background">@drawable/gradient_bg_stat</item>
+
+    </style>
+
+    <style name="newGameBtnTheme" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/gradient_btn_new_game</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:textColor">@color/main_blue</item>
+
+
+    </style>
+
+    <style name="continueGameBtnTheme" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/gradient_btn_continue</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:shadowRadius">5</item>
+
+    </style>
+
 
     <style name="gameToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         ....
@@ -51,7 +87,7 @@
 
     </style>
 
-    <style name="numberTextStyle" parent="Widget.AppCompat.TextView">
+    <style name="numberDialStyle" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/roboto</item>
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/darker_blue</item>

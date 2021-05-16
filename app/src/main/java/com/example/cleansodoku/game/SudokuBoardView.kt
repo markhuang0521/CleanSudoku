@@ -11,12 +11,20 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.cleansodoku.R
 import com.example.cleansodoku.models.Cell
+import com.example.cleansodoku.settings.Setting
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context, attributes) {
+class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context, attributes),
+    KoinComponent {
+
+    private val setting: Setting by inject()
+
 
     private var listener: OnTouchListener? = null
 
     private var gameBoard: Array<Array<Cell>>? = null
+    private var solutionBoard: Array<Array<Cell>>? = null
 
     // for cell highlights
 //    private var selectedCell.row = -1
@@ -93,6 +101,21 @@ class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context
 
     }
 
+    private fun darkThemePaint() {
+        if (setting.darkMode) {
+            thickLinePaint.color = ContextCompat.getColor(context, R.color.white)
+            borderPaint.color = ContextCompat.getColor(context, R.color.white)
+            highlightedCellPaint.color = ContextCompat.getColor(context, R.color.light_black)
+            startingCellTextPaint.color = ContextCompat.getColor(context, R.color.white)
+            noteTextPaint.color = ContextCompat.getColor(context, R.color.white)
+            selectedCellPaint.color = ContextCompat.getColor(context, R.color.purple_500)
+
+
+        } else {
+
+        }
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
         val sizePixels = Math.min(widthMeasureSpec, heightMeasureSpec)
@@ -105,7 +128,7 @@ class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context
         cellSize = width / squareSize.toFloat()
         noteCellSize = cellSize / squareLength.toFloat()
 
-
+        darkThemePaint()
         fillCells(canvas)
 
         drawBoard(canvas)
@@ -160,21 +183,14 @@ class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context
                                 valueString, (col * cellSize) + cellSize / 2 - textWidth / 2,
                                 (row * cellSize) + cellSize / 2 - textHeight / 2 + 50, paintToUse
                             )
-                            if (!isSelectedCellCorrect && !cell.isStartingCell && col == selectedCell.col && row == selectedCell.row) {
+                            if (!cell.isStartingCell && cell.value != solutionBoard!![row][col].value) {
                                 canvas.drawText(
                                     valueString,
                                     (col * cellSize) + cellSize / 2 - textWidth / 2,
                                     (row * cellSize) + cellSize / 2 - textHeight / 2 + 50,
                                     conflictTextPaint
                                 )
-                            }
-                            if (!isSelectedCellCorrect && !cell.isStartingCell) {
-                                canvas.drawText(
-                                    valueString,
-                                    (col * cellSize) + cellSize / 2 - textWidth / 2,
-                                    (row * cellSize) + cellSize / 2 - textHeight / 2 + 50,
-                                    conflictTextPaint
-                                )
+
                             }
 
                         }
@@ -291,9 +307,11 @@ class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context
         invalidate()
     }
 
-    fun updateBoard(board: Array<Array<Cell>>, isCorrect: Boolean) {
+    fun updateBoard(board: Array<Array<Cell>>, solution: Array<Array<Cell>>?) {
         this.gameBoard = board
-        this.isSelectedCellCorrect = isCorrect
+        if (solution != null) {
+            solutionBoard = solution
+        }
         invalidate()
     }
 

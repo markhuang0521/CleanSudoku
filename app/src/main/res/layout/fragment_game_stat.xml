@@ -18,8 +18,8 @@
         tools:context=".statistics.GameStatisticsFragment">
 
         <com.google.android.material.tabs.TabLayout
-            android:background="@drawable/gradient_bg_statics"
             android:id="@+id/tab_layout_statics"
+            style="@style/statFragmentBgTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
