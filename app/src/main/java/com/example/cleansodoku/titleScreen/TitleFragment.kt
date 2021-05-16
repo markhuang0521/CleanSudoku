@@ -2,11 +2,13 @@ package com.example.cleansodoku.titleScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.cleansodoku.R
 import com.example.cleansodoku.databinding.FragmentTitleBinding
 import com.example.cleansodoku.game.SudokuViewModel
 import com.example.cleansodoku.utils.*
@@ -25,9 +27,11 @@ class TitleFragment : Fragment() {
     ): View? {
 
         binding = FragmentTitleBinding.inflate(inflater, container, false)
-        showToolbar()
         showBottomNav()
-        setToolbarTitle("Clean SudoKu")
+//        setToolbar(binding.toolbar)
+        showToolbar()
+        setToolbarTitle("Clean Sudoku")
+
         setDisplayHomeAsUpEnabled(false)
         setHasOptionsMenu(true)
 
@@ -53,9 +57,20 @@ class TitleFragment : Fragment() {
         }
     }
 
+
     private fun showContinueGame(binding: FragmentTitleBinding) {
 
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            R.id.settingsFragment -> {
+                findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToSettingsFragment())
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

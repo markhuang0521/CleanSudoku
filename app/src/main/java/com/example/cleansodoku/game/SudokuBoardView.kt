@@ -49,7 +49,7 @@ class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context
     //paint for cell border
     private val thinLinePaint = Paint().apply {
         style = Paint.Style.STROKE
-        color = ContextCompat.getColor(context, R.color.black)
+        color = ContextCompat.getColor(context, R.color.darker_transparent)
         strokeWidth = 2F
     }
 
@@ -82,11 +82,13 @@ class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context
         style = Paint.Style.FILL_AND_STROKE
         color = ContextCompat.getColor(context, R.color.black)
         textSize = 64F
+
     }
-    private val confliectTextPaint = Paint().apply {
+    private val conflictTextPaint = Paint().apply {
         style = Paint.Style.FILL_AND_STROKE
         color = ContextCompat.getColor(context, R.color.accent)
         textSize = 64F
+        typeface = Typeface.DEFAULT_BOLD
 
 
     }
@@ -163,7 +165,15 @@ class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context
                                     valueString,
                                     (col * cellSize) + cellSize / 2 - textWidth / 2,
                                     (row * cellSize) + cellSize / 2 - textHeight / 2 + 50,
-                                    confliectTextPaint
+                                    conflictTextPaint
+                                )
+                            }
+                            if (!isSelectedCellCorrect && !cell.isStartingCell) {
+                                canvas.drawText(
+                                    valueString,
+                                    (col * cellSize) + cellSize / 2 - textWidth / 2,
+                                    (row * cellSize) + cellSize / 2 - textHeight / 2 + 50,
+                                    conflictTextPaint
                                 )
                             }
 

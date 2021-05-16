@@ -1,9 +1,12 @@
 package com.example.cleansodoku.game
 
+import android.app.Application
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cleansodoku.R
 import com.example.cleansodoku.database.DbSudokuGame
 import com.example.cleansodoku.models.Cell
 import com.example.cleansodoku.models.Move
@@ -16,7 +19,7 @@ import timber.log.Timber
 import java.text.DecimalFormat
 import java.util.*
 
-class SudokuViewModel(private val sudokuGame: SudokuGame) : ViewModel() {
+class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) : ViewModel() {
     var gameBoard = MutableLiveData<Array<Array<Cell>>>()
     var solutionBoard = MutableLiveData<Array<Array<Cell>>>()
     var originalBoard = MutableLiveData<Array<Array<Cell>>>()
@@ -28,11 +31,26 @@ class SudokuViewModel(private val sudokuGame: SudokuGame) : ViewModel() {
     val gameId = MutableLiveData<Long>()
     val gameStatistic = MutableLiveData<GameStatistics>()
 
+    private var mediaPlayer: MediaPlayer? = null
+
     private val isNoteOn = MutableLiveData<Boolean>(false)
-    private val hasCurrentGame = MutableLiveData<Boolean>(false)
     private var selectedRow = 0
     private var selectedCol = 0
     private val undoStack: Stack<Move> = Stack()
+
+    fun playButtonSound() {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(app.applicationContext, R.raw.click)
+            mediaPlayer!!.start()
+        } else mediaPlayer!!.start()
+    }
+
+    fun playHintSound() {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(app.applicationContext, R.raw.hint_click)
+            mediaPlayer!!.start()
+        } else mediaPlayer!!.start()
+    }
 
     fun startNewGame(difficulty: Difficulty) {
 
@@ -64,6 +82,8 @@ class SudokuViewModel(private val sudokuGame: SudokuGame) : ViewModel() {
     }
 
     init {
+        mediaPlayer = MediaPlayer.create(app.applicationContext, R.raw.click)
+
         viewModelScope.launch {
             sudokuGame.deleteAll()
 
@@ -145,15 +165,15 @@ class SudokuViewModel(private val sudokuGame: SudokuGame) : ViewModel() {
 
 
     fun gameOver(): Boolean {
-        if (mistakes.value!! == 3) {
-            gameBoard.value = null
+        if (mistakes.value!! >= 5) {
+//            gameBoard.value = null
             return true
         }
         return false
     }
 
     fun moreHints(): Boolean {
-        if (hints.value!! <= 0) {
+        if (hints.value!! < 0) {
             return true
         }
         return false
@@ -182,12 +202,16 @@ class SudokuViewModel(private val sudokuGame: SudokuGame) : ViewModel() {
     fun isSelectedCellCorrect(): Boolean {
         selectedCell.value?.let {
             if (validPosition()) {
-                if (selectedCell.value?.value == 0) {
+                Timber.d("cellvalue: ${selectedCell.value.toString()}")
+                Timber.d("cellvalue==0: ${(selectedCell.value?.value == 0).toString()}")
+
+                if (selectedCell.value?.value == 0 || selectedCell.value == null) {
                     return false
-                } else if (!sudokuGame.isCellCorrect(
-                        selectedCell.value!!
-                    )
+                } else if (!sudokuGame.isCellCorrect(selectedCell.value!!)
                 ) {
+                    val b = !sudokuGame.isCellCorrect(selectedCell.value!!)
+                    Timber.d("cellvalue: ${b.toString()}")
+
                     mistakes.value = mistakes.value?.plus(1)
                     return false
                 } else {
@@ -199,6 +223,7 @@ class SudokuViewModel(private val sudokuGame: SudokuGame) : ViewModel() {
     }
 
     fun toggleNotes() {
+        playButtonSound()
         isNoteOn.value = !isNoteOn.value!!
         Log.d("TAG", "toggleNotes: ${isNoteOn.value}")
     }
@@ -213,6 +238,7 @@ class SudokuViewModel(private val sudokuGame: SudokuGame) : ViewModel() {
 
 
     fun updateCellValue(num: Int) {
+        playButtonSound()
         if (isNoteOn.value!!) {
 
             gameBoard.postValue(sudokuGame.addNotesForCurrentCell(selectedCell.value!!, num))
@@ -226,8 +252,8 @@ class SudokuViewModel(private val sudokuGame: SudokuGame) : ViewModel() {
     }
 
     fun clearCellValue() {
-
-        selectedCell.postValue(Cell(selectedRow, selectedCol, 0))
+        playButtonSound()
+        selectedCell.value = (Cell(selectedRow, selectedCol, 0))
         gameBoard.value = (sudokuGame.clearCell(selectedRow, selectedCol))
         Log.d("TAG", "clearCellValue: ${selectedCell.value?.notes}")
 
@@ -249,7 +275,10 @@ class SudokuViewModel(private val sudokuGame: SudokuGame) : ViewModel() {
         if (validPosition()) {
             selectedRow = row
             selectedCol = col
-            selectedCell.value = (gameBoard.value!![selectedRow][selectedCol].copy())
+            gameBoard.value?.let {
+                selectedCell.value = (gameBoard.value!![selectedRow][selectedCol].copy())
+
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Chronometer
@@ -27,11 +28,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
     private val viewModel: SudokuViewModel by inject()
     private lateinit var binding: FragmentGameBinding
     private lateinit var gameTimer: Chronometer
-    var hintAd: RewardedAd? = null
-    private lateinit var adView: AdView
-
-
-    private var acutalMistake = 0
+    var rewardAd: RewardedAd? = null
 
 
     override fun onCreateView(
@@ -42,50 +39,17 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game, container, false)
         binding.viewmodel = viewModel
-
         showToolbar()
         setToolbarTitle()
+        setHasOptionsMenu(true)
+
         removeBottomNav()
         setDisplayHomeAsUpEnabled(true)
         // ads
-
-
-        RewardedAd.load(
-            requireActivity(),
-            "ca-app-pub-3940256099942544/5224354917",
-            AdRequest.Builder().build(),
-            object : RewardedAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Timber.d("Ad was onAdFailedToLoad.")
-
-                    hintAd = null
-                }
-
-                override fun onAdLoaded(rewardedAd: RewardedAd) {
-                    Timber.d("Ad was onAdLoaded.")
-
-                    hintAd = rewardedAd
-                }
-            })
-
-        hintAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-            override fun onAdDismissedFullScreenContent() {
-                Timber.d("Ad was dismissed.")
-            }
-
-            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                Timber.d("Ad failed to show.")
-
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                Timber.d("Ad  to show full screen.")
-                // Called when ad is dismissed.
-                // Don't set the ad reference to null to avoid showing the ad a second time.
-                hintAd = null
-            }
+        MobileAds.initialize(requireActivity()) {
+            Timber.d("ad stating")
+//            loadRewardAd()
         }
-//        loadBannerAd()
 
         return binding.root
     }
@@ -100,35 +64,74 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
         setUpObservers()
     }
 
-//    private fun loadBannerAd() {
-//
-//        val display = requireActivity().windowManager.defaultDisplay
-//        val outMetrics = DisplayMetrics()
-//        display.getMetrics(outMetrics)
-//
-//        val density = outMetrics.density
-//
-//        var adWidthPixels = binding.bannerAd.width.toFloat()
-//        if (adWidthPixels == 0f) {
-//            adWidthPixels = outMetrics.widthPixels.toFloat()
-//        }
-//
-//        val adWidth = (adWidthPixels / density).toInt()
-//        val adSize =
-//            AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(requireContext(), adWidth);
-//
-//
-//        adView = AdView(requireContext())
-//        adView.adSize = adSize
-//        adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
-//        binding.bannerAd.addView(adView)
-//
-//
-//        val adRequest = AdRequest.Builder().build()
-//        adView.loadAd(adRequest)
-//
-//
-//    }
+    private fun loadRewardAd() {
+        MobileAds.initialize(requireActivity()) {
+            Timber.d("ad stating")
+        }
+        var adRequest = AdRequest.Builder().build()
+        if (rewardAd == null) {
+            RewardedAd.load(
+                requireActivity(),
+                "ca-app-pub-3940256099942544/5224354917",
+                adRequest,
+                object : RewardedAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        Timber.d("Ad was onAdFailedToLoad. ${adError.toString()}")
+
+                        rewardAd = null
+                    }
+
+                    override fun onAdLoaded(rewardedAd: RewardedAd) {
+                        Timber.d("Ad was onAdLoaded.")
+
+                        rewardAd = rewardedAd
+                        rewardAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                            override fun onAdDismissedFullScreenContent() {
+                                Timber.d("Ad was dismissed.")
+                                rewardAd = null
+                                loadRewardAd()
+                            }
+
+                            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                                Timber.d("Ad failed to show.")
+                                rewardAd = null
+                            }
+
+                            override fun onAdShowedFullScreenContent() {
+                                Timber.d("Ad  to show full screen.")
+                                rewardAd = null
+
+                            }
+                        }
+                    }
+                })
+        }
+
+    }
+
+    private fun showRewardAd(rewardType: ReWardType) {
+        if (rewardAd != null) {
+
+            rewardAd?.show(requireActivity()) {
+                Timber.d("amount: ${it.amount}  type: ${it.type}")
+                when (rewardType) {
+                    ReWardType.Hint -> {
+                        viewModel.hints.value = viewModel.hints.value?.plus(2)
+                    }
+                    ReWardType.Mistake -> {
+                        viewModel.mistakes.value = viewModel.mistakes.value?.minus(1)
+                    }
+                }
+
+
+            }
+        } else {
+            Timber.d("ad never begin")
+
+        }
+
+    }
+
 
     @SuppressLint("SetTextI18n")
     private fun setUpObservers() {
@@ -144,14 +147,13 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
         viewModel.mistakes.observe(viewLifecycleOwner, Observer {
             it?.let {
-                acutalMistake++
-                if (viewModel.gameOver()) {
-                    val builder = AlertDialog.Builder(requireContext())
+                if (it >= 3) {
+                    AlertDialog.Builder(requireContext())
                         .setTitle("Game Over")
-                        .setMessage("Opps!, you got 3 strikes!")
-                        .setPositiveButton("Second Chance") { dialog, i ->
+                        .setMessage("Oops, you Got 3 Strikes!")
+                        .setPositiveButton("Second Chance (Ad)") { dialog, i ->
                             //show add
-                            viewModel.mistakes.value = it - 1
+                            showRewardAd(ReWardType.Mistake)
 
                         }
                         .setNeutralButton("New Game") { dialogInterface, i ->
@@ -171,21 +173,22 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
         viewModel.hints.observe(viewLifecycleOwner, Observer {
             it?.let { hint ->
-                if (viewModel.moreHints()) {
-                    binding.btnHint.text = getString(R.string.btn_hint_ads)
-                    if (hintAd != null) {
-                        hintAd?.show(requireActivity()) { rewardItem ->
-                            Timber.d("User  getting  the reward.")
+                when {
+                    it == 0 -> {
+                        binding.btnHint.text = getString(R.string.btn_hint_ads)
 
-                            viewModel.hints.value = hint + rewardItem.amount
-                        }
-                    } else {
-                        Timber.d("User not getting  the reward.")
                     }
-                } else {
-                    binding.btnHint.text = "Hints: $hint"
+                    viewModel.moreHints() -> {
+                        binding.btnHint.text = getString(R.string.btn_hint_ads)
+                        showRewardAd(ReWardType.Hint)
+                    }
+                    else -> {
+                        binding.btnHint.text = "Hints: $hint"
 
+                    }
                 }
+                Timber.d("hints count: ${viewModel.hints.value.toString()}.")
+
             }
         })
 
@@ -221,6 +224,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
     }
 
+
     override fun onStop() {
         super.onStop()
         gameTimer.stop()
@@ -238,23 +242,26 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
     }
 
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            android.R.id.home -> {
-//                (nav_host_fragment as NavHostFragment).navController.popBackStack()
-//            }
-//            R.id.menu_theme -> {
-//
-//            }
-//
-//            R.id.menu_setting -> {
-//            }
-//
-//
-//        }
-//        return super.onOptionsItemSelected(item)
+    //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        inflater.inflate(R.menu.game_menu, menu)
 //    }
+//
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            R.id.menu_theme -> {
+
+            }
+
+            R.id.settingsFragment -> {
+                findNavController().navigate(GameBoardFragmentDirections.actionGameFragmentToSettingsFragment())
+            }
+
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 
 }

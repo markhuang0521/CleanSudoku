@@ -22,7 +22,10 @@ class SudokuApp : Application() {
         val myModule = module {
             //Declare a ViewModel - be later inject into Fragment with dedicated injector using by viewModel()
             single {
-                SudokuViewModel(get())
+                SudokuViewModel(
+                    get(),
+                    get()
+                )
             }
             //Declare singleton definitions to be later injected using by inject()
             single { SudokuGame(get()) }

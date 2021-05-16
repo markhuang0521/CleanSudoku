@@ -1,15 +1,16 @@
 package com.example.cleansodoku.game
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.cleansodoku.databinding.FragmentGameCompleteBinding
-import com.example.cleansodoku.utils.*
+import com.example.cleansodoku.utils.FragmentTag
+import com.example.cleansodoku.utils.removeBottomNav
+import com.example.cleansodoku.utils.removeToolbar
+import com.example.cleansodoku.utils.showDifficultyDialogAndStartNewGame
 import org.koin.android.ext.android.inject
 
 
@@ -25,7 +26,6 @@ class GameCompleteFragment : Fragment() {
 
         binding = FragmentGameCompleteBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
-
         removeToolbar()
         removeBottomNav()
         return binding.root

@@ -17,6 +17,11 @@
 
     </style>
 
+    <style name="gameToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        ....
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
     <style name="subHeadingStyle" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/roboto</item>
 

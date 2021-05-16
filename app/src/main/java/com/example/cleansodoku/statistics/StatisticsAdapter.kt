@@ -1,7 +1,6 @@
 package com.example.cleansodoku.statistics
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +51,6 @@ class StatisticsFragment : Fragment() {
 
     private lateinit var binding: ItemStaticsBinding
     private val viewModel: SudokuViewModel by inject()
-    private lateinit var currentStatistics: GameStatistics
 
 
     override fun onCreateView(
@@ -80,10 +78,6 @@ class StatisticsFragment : Fragment() {
 
                 viewModel.gameStatistic.observe(viewLifecycleOwner, Observer { statistic ->
                     binding.statistics = statistic
-                    Log.d(
-                        "TAG",
-                        "${difficulty} game stat: ${viewModel.gameStatistic.value.toString()} "
-                    )
 
                 })
 

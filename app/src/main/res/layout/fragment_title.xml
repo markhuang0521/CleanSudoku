@@ -17,12 +17,31 @@
         android:background="@drawable/gradient_bg_title"
         tools:context="com.example.cleansodoku.MainActivity">
 
+<!--        <com.google.android.material.appbar.AppBarLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:elevation="0dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:minHeight="?attr/actionBarSize"-->
+<!--                android:theme="?attr/actionBarTheme"-->
+<!--                app:title="Clean SudoKu"-->
+<!--                app:titleTextColor="@color/white" />-->
+
+<!--        </com.google.android.material.appbar.AppBarLayout>-->
+
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="81dp"
+            android:layout_marginTop="90dp"
             android:src="@drawable/sudoku_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="32dp"
             android:background="@drawable/gradient_btn"
             android:text="continue game"
@@ -52,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="32dp"
             android:background="@drawable/gradient_btn_new_game"
             android:text="new game"

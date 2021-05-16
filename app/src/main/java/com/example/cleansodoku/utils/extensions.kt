@@ -1,6 +1,10 @@
 package com.example.cleansodoku.utils
 
+import android.content.Context
+import android.os.Build
 import android.os.Parcelable
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,10 +20,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.floor
 
-
 enum class FragmentTag {
     Title, GameBoard, GameComplete
 }
+
+enum class ReWardType {
+    Hint, Mistake
+}
+
 
 @Parcelize
 enum class Difficulty(val count: Int) : Parcelable {
@@ -117,6 +125,15 @@ fun Long?.formatToTimeString(): String {
 
 }
 
+fun Fragment.vibratePhone() {
+    val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    if (Build.VERSION.SDK_INT >= 26) {
+        vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+    } else {
+        vibrator.vibrate(200)
+    }
+}
+
 fun Fragment.setToolbarTitle(title: String? = "") {
     if (activity is AppCompatActivity) {
         (activity as AppCompatActivity).supportActionBar?.title = title
@@ -147,6 +164,12 @@ fun Fragment.showToolbar() {
     }
 }
 
+fun Fragment.setToolbar(toolbar: androidx.appcompat.widget.Toolbar) {
+    if (activity is AppCompatActivity) {
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+    }
+}
+
 fun Fragment.setDisplayHomeAsUpEnabled(bool: Boolean) {
     if (activity is AppCompatActivity) {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(
@@ -165,7 +188,7 @@ fun Array<Array<Cell>>.fullCopy(): Array<Array<Cell>> {
         Array(this.size) { col ->
             // game board generation
             val cell = this[row][col]
-            Cell(row, col, cell.value, cell.isStartingCell, cell.notes)
+            Cell(row, col, cell.value, cell.isStartingCell)
 
         }
     }

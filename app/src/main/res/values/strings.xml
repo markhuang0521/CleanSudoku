@@ -5,4 +5,18 @@
     <string name="new_game_dialog_title">Current Game Progress will lost</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+
+    <string name="setting_title_sound">Sound</string>
+    <string name="setting_sound_effect">Audio Effects</string>
+    <string name="setting_vibration_effect">Vibration</string>
 </resources>

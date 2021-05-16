@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.cleansodoku.databinding.FragmentGameStaticsBinding
 import com.example.cleansodoku.game.SudokuViewModel
 import com.example.cleansodoku.utils.Difficulty
-import com.example.cleansodoku.utils.removeToolbar
+import com.example.cleansodoku.utils.setToolbarTitle
 import com.example.cleansodoku.utils.showBottomNav
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -30,7 +30,7 @@ class GameStatisticsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentGameStaticsBinding.inflate(inflater, container, false)
-        removeToolbar()
+        setToolbarTitle("Statistics")
         showBottomNav()
         return binding.root
     }

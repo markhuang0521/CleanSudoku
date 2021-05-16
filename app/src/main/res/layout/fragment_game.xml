@@ -12,24 +12,45 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:id="@+id/layout_gameBoard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="12dp"
         android:orientation="vertical">
+
+<!--        <com.google.android.material.appbar.AppBarLayout-->
+
+<!--            android:id="@+id/layout_appbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:minHeight="?attr/actionBarSize"-->
+<!--                android:theme="@style/gameToolbarTheme"-->
+<!--                app:titleTextColor="@color/white" />-->
+
+<!--        </com.google.android.material.appbar.AppBarLayout>-->
 
 
         <!--subtitle game details-->
 
         <androidx.appcompat.widget.LinearLayoutCompat
-
             android:id="@+id/layout_gameDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal"
             android:weightSum="3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -76,7 +97,9 @@
             android:id="@+id/sudokuBoardView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_gameDetail" />
@@ -86,7 +109,9 @@
             android:id="@+id/layout_actionBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="12dp"
             android:orientation="horizontal"
             android:weightSum="4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -155,11 +180,14 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+
             android:id="@+id/layout_numberDial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="12dp"
             android:orientation="horizontal"
             android:weightSum="9"
             app:layout_constraintEnd_toEndOf="parent"
@@ -167,6 +195,7 @@
             app:layout_constraintTop_toBottomOf="@+id/sudokuBoardView">
 
             <TextView
+
                 style="@style/numberTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -283,14 +312,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_actionBtn" />
-
-        <!--        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-        <!--            android:id="@+id/banner_ad"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"-->
-        <!--            ads:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            ads:layout_constraintTop_toBottomOf="@id/layout_actionBtn" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,27 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:title="">
+
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_volume_up_blue"
+            app:key="sound"
+            app:title="@string/setting_sound_effect" />
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_vibration"
+            app:key="vibration"
+            app:title="@string/setting_vibration_effect" />
+
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_timer_blue"
+            app:key="attachment"
+
+            app:title="Timer" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
