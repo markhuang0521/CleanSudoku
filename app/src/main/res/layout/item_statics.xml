@@ -5,11 +5,11 @@
 
         <variable
             name="statistics"
-            type="com.example.cleansodoku.statistics.GameStatistics" />
+            type="com.cleanSudoku.cleansodoku.statistics.GameStatistics" />
 
         <variable
             name="viewModel"
-            type="com.example.cleansodoku.game.SudokuViewModel" />
+            type="com.cleanSudoku.cleansodoku.game.SudokuViewModel" />
 
     </data>
 

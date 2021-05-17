@@ -9,10 +9,9 @@ def localProperties = new Properties()
 localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.cleansodoku"
+        applicationId "com.cleanSudoku.cleansodoku"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -30,6 +29,8 @@ android {
 
         }
         release {
+            buildConfigField("String", "ad_hint_rewarded_id", "\"" + localProperties['ad_hint_rewarded_id'] + "\"")
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

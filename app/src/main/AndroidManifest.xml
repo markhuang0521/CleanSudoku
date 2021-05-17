@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.cleansodoku">
+    package="com.cleanSudoku.cleansodoku">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
 
     <application
-        android:name=".SudokuApp"
+        android:name="com.cleanSudoku.cleansodoku.SudokuApp"
         android:allowBackup="false"
         android:icon="@drawable/sudoku_app_icon"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-1321739136864574~8257642004" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.cleanSudoku.cleansodoku.MainActivity"
             android:forceDarkAllowed="true"
             tools:targetApi="q">
             <intent-filter>

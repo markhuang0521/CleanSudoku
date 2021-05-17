@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/titleFragment"
-        android:name="com.example.cleansodoku.titleScreen.TitleFragment"
+        android:name="com.cleanSudoku.cleansodoku.titleScreen.TitleFragment"
         android:label="fragment_title"
         tools:layout="@layout/fragment_title">
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.example.cleansodoku.game.GameBoardFragment"
+        android:name="com.cleanSudoku.cleansodoku.game.GameBoardFragment"
         android:label="GameFragment"
         tools:layout="@layout/fragment_game">
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameCompleteFragment"
-        android:name="com.example.cleansodoku.game.GameCompleteFragment"
+        android:name="com.cleanSudoku.cleansodoku.game.GameCompleteFragment"
         android:label="GameCompleteFragment"
         tools:layout="@layout/fragment_game_complete">
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameStaticsFragment"
-        android:name="com.example.cleansodoku.statistics.GameStatisticsFragment"
+        android:name="com.cleanSudoku.cleansodoku.statistics.GameStatisticsFragment"
         android:label="fragment_game_statics"
         tools:layout="@layout/fragment_game_stat">
         <action
@@ -58,8 +58,8 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.cleansodoku.settings.SettingsFragment"
-        android:label="SettingsFragment">>
+        android:name="com.cleanSudoku.cleansodoku.settings.SettingsFragment"
+        android:label="SettingsFragment">
         <action
             android:id="@+id/action_settingsFragment_to_titleFragment"
             app:destination="@id/titleFragment" />

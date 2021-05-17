@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.example.cleansodoku.game.SudokuViewModel" />
+            type="com.cleanSudoku.cleansodoku.game.SudokuViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

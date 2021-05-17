@@ -8,7 +8,7 @@
 
         <variable
             name="viewmodel"
-            type="com.example.cleansodoku.game.SudokuViewModel" />
+            type="com.cleanSudoku.cleansodoku.game.SudokuViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,7 +90,7 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <com.example.cleansodoku.game.SudokuBoardView
+        <com.cleanSudoku.cleansodoku.game.SudokuBoardView
 
             android:id="@+id/sudokuBoardView"
             android:layout_width="match_parent"
