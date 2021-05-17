@@ -44,7 +44,7 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
     val gameStatistic = MutableLiveData<GameStatistics>()
 
     var mediaPlayer: MediaPlayer? = null
-    lateinit var soundPool: SoundPool
+    var soundPool: SoundPool
     var buttonClickSound: Int
     var hintClickSound: Int
 
@@ -187,7 +187,8 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
                     sudokuGame.getAvgTime(difficulty).formatToTimeString()
                 )
 
-
+            Timber.d("winrate :  ${sudokuGame.getWinRate(difficulty).toString()}")
+            Timber.d("winrate :  ${gameStatistic.value?.winRate.toString()}.")
         }
 
 
@@ -221,7 +222,6 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
     fun undoBoard() {
         if (!undoStack.isEmpty()) {
             val move = undoStack.pop()
-            Log.d("viewmodel", "undoBoard: ${move.cell.toString()}, ${move.board.toString()}")
             selectedCell.value = (move.cell)
             gameBoard.postValue(move.board)
         }
@@ -285,7 +285,6 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
         playButtonSoundAndVibrate(buttonClickSound)
         selectedCell.value = (Cell(selectedRow, selectedCol, 0))
         gameBoard.value = (sudokuGame.clearCell(selectedRow, selectedCol))
-        Log.d("TAG", "clearCellValue: ${selectedCell.value?.notes}")
 
 
     }

@@ -7,6 +7,7 @@ import com.example.cleansodoku.utils.fullCopy
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class SudokuGame(
     private val sudokuDao: SudokuDao,
@@ -72,10 +73,12 @@ class SudokuGame(
     }
 
     suspend fun getWinRate(difficulty: String): Double = withContext(ioDispatcher) {
-
         val game = getTotalGame(difficulty).toDouble()
         val win = getTotalWin(difficulty).toDouble()
-        return@withContext win / game
+        val rate = win / game
+        Timber.d("win: $win game:$game rate: $rate.toString()")
+
+        return@withContext rate
     }
 
     suspend fun getBestTime(difficulty: String): Long? = withContext(ioDispatcher) {
