@@ -108,7 +108,7 @@ class SudokuGenerator {
 
         return (unUsedInRow(row, num) &&
                 unUsedInCol(col, num) &&
-                unUsedInBox(row - row % sqrtWidth, col - col % sqrtWidth, num));
+                unUsedInBox(row - row % sqrtWidth, col - col % sqrtWidth, num))
     }
 
     // Returns false if given 3 x 3 block contains num.
@@ -204,7 +204,7 @@ fun boardToString(board: Array<IntArray>): String {
 
 
 fun main() {
-    val test = SudokuGenerator.generate(Difficulty.Easy)
+//    val test = SudokuGenerator.generate(Difficulty.Easy)
 
 
 //    println(boardToString(test.board))
