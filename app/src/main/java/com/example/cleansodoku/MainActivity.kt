@@ -42,9 +42,9 @@ class MainActivity : AppCompatActivity() {
             android.R.id.home -> {
                 (nav_host_fragment as NavHostFragment).navController.popBackStack()
             }
-            R.id.menu_theme -> {
-
-            }
+//            R.id.menu_theme -> {
+//
+//            }
 
 
         }

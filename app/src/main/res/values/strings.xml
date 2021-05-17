@@ -20,4 +20,7 @@
     <string name="setting_vibration">Vibration</string>
     <string name="setting_timer">Display Timber</string>
     <string name="setting_dark_theme">setting_dark_theme</string>
+    <string name="setting_rating">setting_rating</string>
+    <string name="setting_about">setting_about</string>
+    <string name="setting">setting</string>
 </resources>

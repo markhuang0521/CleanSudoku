@@ -31,7 +31,7 @@ enum class ReWardType {
 
 @Parcelize
 enum class Difficulty(val count: Int) : Parcelable {
-    Easy(13), Medium(1), Hard(1), Insane(5)
+    Easy(43), Medium(51), Hard(53), Insane(59)
 }
 
 
@@ -95,6 +95,7 @@ fun Fragment.showDifficultyDialogAndStartNewGame(viewModel: SudokuViewModel, Fra
 
 }
 
+@Suppress("UNUSED_VARIABLE")
 fun Fragment.showGameOverDialog(viewModel: SudokuViewModel) {
     val builder = AlertDialog.Builder(requireContext())
         .setTitle("Game Over")
@@ -125,6 +126,7 @@ fun Long?.formatToTimeString(): String {
 
 }
 
+@Suppress("DEPRECATION")
 fun Fragment.vibratePhone() {
     val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     if (Build.VERSION.SDK_INT >= 26) {
@@ -195,7 +197,7 @@ fun Array<Array<Cell>>.fullCopy(): Array<Array<Cell>> {
 }
 
 fun Array<Array<Cell>>.toValueString(): String {
-    var string = StringBuilder()
+    val string = StringBuilder()
 
     for (row in this) {
         for (cell in row) {
@@ -205,29 +207,5 @@ fun Array<Array<Cell>>.toValueString(): String {
     return string.toString()
 }
 
-fun String.toBoardArray() {
-    Array(9) { row ->
-        Array(9) { col ->
-
-        }
-    }
-}
-
-fun main() {
-    var string = StringBuilder()
-    string.append(12313123)
-    println(string)
-    val arr = Array(9) { Array(9) { Cell(0, 0) } }
 
 
-//    val long = 3986L
-//    println(long.formatToTimeString())
-//
-//    val arr = arrayOf(Cell(0, 0), Cell(1, 1), Cell(2, 2))
-//    val a2 = arr.map { it.copy() }
-//    arr[0].row = 99
-//    arr[0].col = 99
-//
-//    println(arr[0].toString())
-//    println(a2[0].toString())
-}

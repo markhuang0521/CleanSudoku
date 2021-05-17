@@ -10,8 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.cleansodoku.BuildConfig
 import com.example.cleansodoku.R
 import com.example.cleansodoku.databinding.FragmentGameBinding
+import com.example.cleansodoku.settings.Setting
 import com.example.cleansodoku.utils.*
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
@@ -23,6 +25,7 @@ import timber.log.Timber
 
 class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
     private val viewModel: SudokuViewModel by inject()
+    private val setting: Setting by inject()
     private lateinit var binding: FragmentGameBinding
     private lateinit var gameTimer: Chronometer
     var rewardAd: RewardedAd? = null
@@ -52,7 +55,6 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         MobileAds.initialize(requireActivity()) {
-            Timber.d("ad stating")
             loadRewardAd()
         }
         setGameTimer()
@@ -63,11 +65,11 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
     private fun loadRewardAd() {
 
-        var adRequest = AdRequest.Builder().build()
+        val adRequest = AdRequest.Builder().build()
         if (rewardAd == null) {
             RewardedAd.load(
                 requireActivity(),
-                "ca-app-pub-3940256099942544/5224354917",
+                BuildConfig.ad_hint_rewarded_id,
                 adRequest,
                 object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -128,6 +130,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
     }
 
 
+    @Suppress("UNUSED_VARIABLE")
     @SuppressLint("SetTextI18n")
     private fun setUpObservers() {
         viewModel.selectedCell.observe(viewLifecycleOwner, Observer {
@@ -142,7 +145,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
         viewModel.mistakes.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if (it >= 13) {
+                if (it >= 3) {
                     AlertDialog.Builder(requireContext())
                         .setTitle("Game Over")
                         .setMessage("Oops, you Got 3 Strikes!")
@@ -230,19 +233,22 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
     override fun onResume() {
         super.onResume()
-        gameTimer.base = SystemClock.elapsedRealtime() - viewModel.timer.value!!;
+        gameTimer.base = SystemClock.elapsedRealtime() - viewModel.timer.value!!
 
         gameTimer.start()
+        if (setting.timer) {
+            gameTimer.visibility = View.VISIBLE
+        } else {
+            gameTimer.visibility = View.GONE
+
+        }
 
 
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.mediaPlayer?.let {
-            it.release()
-
-        }
+        viewModel.mediaPlayer?.release()
         viewModel.mediaPlayer = null
     }
 
@@ -254,9 +260,9 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.menu_theme -> {
-
-            }
+//            R.id.menu_theme -> {
+//
+//            }
 
             R.id.settingsFragment -> {
                 findNavController().navigate(GameBoardFragmentDirections.actionGameFragmentToSettingsFragment())

@@ -1,6 +1,5 @@
 package com.example.cleansodoku.models
 
-import android.util.Log
 import com.example.cleansodoku.database.DbSudokuGame
 import com.example.cleansodoku.database.SudokuDao
 import com.example.cleansodoku.utils.Difficulty
@@ -74,7 +73,7 @@ class SudokuGame(
 
     suspend fun getWinRate(difficulty: String): Double = withContext(ioDispatcher) {
 
-        val game = getTotalGame(difficulty)
+        val game = getTotalGame(difficulty).toDouble()
         val win = getTotalWin(difficulty).toDouble()
         return@withContext win / game
     }
@@ -118,10 +117,7 @@ class SudokuGame(
         if (!isStartingCell(row, col)) {
             board[row][col].notes.clear()
             board[row][col].value = 0
-            Log.d(
-                "TAG",
-                "cleared notes: ${board[row][col].notes.toString()} clear value:  ${board[row][col].value} "
-            )
+
 
         }
         return board
@@ -178,18 +174,3 @@ class SudokuGame(
     }
 }
 
-
-suspend fun main() {
-
-
-//    val game = SudokuGame()
-//    game.generateBoard(Difficulty.Insane)
-//
-//    game.updateCurrentCell(0, 0, 1000000)
-//    game.updateCurrentCell(0, 1, 1000000)
-//    game.printBoard()
-//    game.resetBoard()
-//    game.printBoard()
-
-
-}

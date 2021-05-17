@@ -1,9 +1,13 @@
 package com.example.cleansodoku.settings
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -50,10 +54,32 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
         )
     }
 
+    private fun rateThisApp() {
+        try {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=" + requireContext().packageName)
+                )
+            )
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "Google Play not found!", Toast.LENGTH_SHORT).show()
+
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + requireContext().packageName)
+                )
+            )
+        }
+
+    }
+
 
     override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
         when (preference.key) {
             requireContext().getString(R.string.setting_dark_theme) -> toggleDarkTheme(newValue as Boolean)
+            requireContext().getString(R.string.setting_rating) -> rateThisApp()
         }
         return true
     }

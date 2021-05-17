@@ -31,6 +31,18 @@
             app:title="Dark Mode" />
 
     </PreferenceCategory>
+    <PreferenceCategory>
+        <Preference
+            app:icon="@drawable/ic_rate_review"
+            app:key="@string/setting_rating"
+            app:title="Rate This App" />
+        <Preference
+            app:icon="@drawable/ic_star_rate"
+            app:key="@string/setting_about"
+            app:summary="Developed By MingTheCouchDev (POG!)"
+            app:title="About" />
+
+    </PreferenceCategory>
 
 
 </PreferenceScreen>
