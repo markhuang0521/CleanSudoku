@@ -6,7 +6,6 @@ import android.os.SystemClock
 import android.view.*
 import android.widget.Chronometer
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -37,7 +36,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game, container, false)
+        binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
         showToolbar()
         setToolbarTitle()
@@ -55,7 +54,10 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         MobileAds.initialize(requireActivity()) {
-            loadRewardAd()
+            if (activity != null) {
+                loadRewardAd()
+
+            }
         }
         setGameTimer()
         sudokuBoardView.setBoardTouchListener(this)

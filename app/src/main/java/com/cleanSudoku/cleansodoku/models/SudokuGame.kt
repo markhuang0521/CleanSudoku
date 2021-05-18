@@ -75,7 +75,7 @@ class SudokuGame(
     suspend fun getWinRate(difficulty: String): Double = withContext(ioDispatcher) {
         val game = getTotalGame(difficulty).toDouble()
         val win = getTotalWin(difficulty).toDouble()
-        val rate = win / game
+        val rate = if (game != 0.0) (win / game) else 0.0
         Timber.d("win: $win game:$game rate: $rate.toString()")
 
         return@withContext rate

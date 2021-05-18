@@ -68,7 +68,6 @@
             <TextView
                 android:id="@+id/tv_mistakes"
                 style="@style/subHeadingStyle"
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

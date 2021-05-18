@@ -121,7 +121,7 @@ fun Long?.formatToTimeString(): String {
             TimeUnit.MILLISECONDS.toSeconds(this) % TimeUnit.MINUTES.toSeconds(1)
         )
     } else {
-        "00:00::00"
+        "-"
     }
 
 }

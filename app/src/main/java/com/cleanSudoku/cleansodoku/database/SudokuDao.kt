@@ -30,10 +30,10 @@ interface SudokuDao {
     @Query("SELECT COUNT(*)FROM tb_sudoku_game where  difficulty=:difficulty and succeed=1")
     suspend fun getTotalWin(difficulty: String): Int
 
-    @Query("SELECT total_time FROM tb_sudoku_game where  difficulty=:difficulty ORDER BY total_time  limit 1")
+    @Query("SELECT total_time FROM tb_sudoku_game where  difficulty=:difficulty and succeed=1 ORDER BY total_time  limit 1")
     suspend fun getBestTime(difficulty: String): Long?
 
-    @Query("SELECT AVG(total_time)  FROM tb_sudoku_game where  difficulty=:difficulty ")
+    @Query("SELECT AVG(total_time)  FROM tb_sudoku_game where  difficulty=:difficulty and succeed=1 ")
     suspend fun getAvgTime(difficulty: String): Long?
 
     @Query("DELETE  FROM tb_sudoku_game")

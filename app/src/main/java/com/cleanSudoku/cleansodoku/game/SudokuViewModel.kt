@@ -23,7 +23,6 @@ import com.cleanSudoku.cleansodoku.utils.formatToTimeString
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import timber.log.Timber
 import java.text.DecimalFormat
 import java.util.*
 
@@ -127,10 +126,7 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
         if (gameBoard.value == null) {
             viewModelScope.launch {
                 val currentGame = sudokuGame.loadCurrentGame()
-                Timber.d("current game: ${currentGame.toString()}")
                 currentGame?.let {
-                    Timber.d("current game: ${currentGame.currentBoard.size}")
-
                     gameId.value = currentGame.id
                     gameBoard.value = (currentGame.currentBoard)
                     solutionBoard.value = (currentGame.solutionBoard)
@@ -186,8 +182,6 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
                     sudokuGame.getAvgTime(difficulty).formatToTimeString()
                 )
 
-            Timber.d("winrate :  ${sudokuGame.getWinRate(difficulty).toString()}")
-            Timber.d("winrate :  ${gameStatistic.value?.winRate.toString()}.")
         }
 
 
@@ -232,15 +226,13 @@ class SudokuViewModel(val app: Application, private val sudokuGame: SudokuGame) 
     fun isSelectedCellCorrect(): Boolean {
         selectedCell.value?.let {
             if (validPosition()) {
-                Timber.d("cellvalue: ${selectedCell.value.toString()}")
-                Timber.d("cellvalue==0: ${(selectedCell.value?.value == 0).toString()}")
+
 
                 if (selectedCell.value?.value == 0 || selectedCell.value == null) {
                     return false
                 } else if (!sudokuGame.isCellCorrect(selectedCell.value!!)
                 ) {
                     val b = !sudokuGame.isCellCorrect(selectedCell.value!!)
-                    Timber.d("cellvalue: ${b.toString()}")
 
                     mistakes.value = mistakes.value?.plus(1)
                     return false

@@ -42,7 +42,7 @@ class SudokuGenerator {
 
         // Remove Randomly K digits to make game
         removeKDigits(difficulty)
-        printSudoku()
+//        printSudoku()
 
 
     }
