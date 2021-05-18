@@ -9,6 +9,6 @@
     <item
         android:id="@+id/gameStaticsFragment"
         android:icon="@drawable/ic_statics_black"
-        android:title="Statics"
+        android:title="Statistics"
         app:showAsAction="always" />
 </menu>
