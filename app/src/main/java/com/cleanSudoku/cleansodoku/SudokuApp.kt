@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.cleanSudoku.cleansodoku.database.SudoKuDatabase
 import com.cleanSudoku.cleansodoku.game.SudokuViewModel
-import com.cleanSudoku.cleansodoku.models.SudokuGame
+import com.cleanSudoku.cleansodoku.models.SudokuGameRepository
 import com.cleanSudoku.cleansodoku.settings.Setting
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -31,7 +31,7 @@ class SudokuApp : Application() {
                 )
             }
             //Declare singleton definitions to be later injected using by inject()
-            single { SudokuGame(get()) }
+            single { SudokuGameRepository(get()) }
             single { SudoKuDatabase.getInstance(this@SudokuApp).sudokuDao }
             single { Setting(get()) }
         }

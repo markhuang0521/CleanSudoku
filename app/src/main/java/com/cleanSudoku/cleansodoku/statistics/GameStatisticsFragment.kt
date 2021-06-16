@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cleanSudoku.cleansodoku.databinding.FragmentGameStatBinding
 import com.cleanSudoku.cleansodoku.game.SudokuViewModel
-import com.cleanSudoku.cleansodoku.utils.Difficulty
-import com.cleanSudoku.cleansodoku.utils.setToolbarTitle
-import com.cleanSudoku.cleansodoku.utils.showBottomNav
+import com.cleanSudoku.cleansodoku.util.Difficulty
+import com.cleanSudoku.cleansodoku.util.setToolbarTitle
+import com.cleanSudoku.cleansodoku.util.showBottomNav
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
@@ -41,6 +41,7 @@ class GameStatisticsFragment : Fragment() {
         binding.viewModel = viewModel
         statisticsAdapter = StatisticsAdapter(this)
         binding.viewPagerStatics.adapter = statisticsAdapter
+        viewModel.getGameStatistic(Difficulty.Easy.name)
 
         TabLayoutMediator(binding.tabLayoutStatics, binding.viewPagerStatics) { tab, position ->
             tab.text = difficultyArray[position].name
@@ -57,6 +58,7 @@ class GameStatisticsFragment : Fragment() {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.getGameStatistic(tab.text.toString())
+
             }
 
         })

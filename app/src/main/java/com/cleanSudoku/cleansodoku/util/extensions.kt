@@ -1,4 +1,4 @@
-package com.cleanSudoku.cleansodoku.utils
+package com.cleanSudoku.cleansodoku.util
 
 import android.content.Context
 import android.os.Build
@@ -31,7 +31,7 @@ enum class ReWardType {
 
 @Parcelize
 enum class Difficulty(val count: Int) : Parcelable {
-    Easy(43), Medium(51), Hard(53), Insane(59)
+    Easy(3), Medium(51), Hard(53), Insane(59)
 }
 
 
@@ -49,10 +49,12 @@ fun Fragment.showDifficultyDialogAndStartNewGame(viewModel: SudokuViewModel, Fra
             when (which) {
                 0 -> {
                     viewModel.startNewGame(Difficulty.Easy)
-                    if (FragmentTag == com.cleanSudoku.cleansodoku.utils.FragmentTag.Title.name) {
+
+                    if (FragmentTag == com.cleanSudoku.cleansodoku.util.FragmentTag.Title.name) {
+
                         findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
 
-                    } else if (FragmentTag == com.cleanSudoku.cleansodoku.utils.FragmentTag.GameComplete.name) {
+                    } else if (FragmentTag == com.cleanSudoku.cleansodoku.util.FragmentTag.GameComplete.name) {
                         findNavController().navigate(GameCompleteFragmentDirections.actionGameCompleteFragmentToGameFragment())
 
                     }
@@ -60,30 +62,35 @@ fun Fragment.showDifficultyDialogAndStartNewGame(viewModel: SudokuViewModel, Fra
                 }
                 1 -> {
                     viewModel.startNewGame(Difficulty.Medium)
-                    if (FragmentTag == com.cleanSudoku.cleansodoku.utils.FragmentTag.Title.name) {
+
+                    if (FragmentTag == com.cleanSudoku.cleansodoku.util.FragmentTag.Title.name) {
+
                         findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
 
-                    } else if (FragmentTag == com.cleanSudoku.cleansodoku.utils.FragmentTag.GameComplete.name) {
+                    } else if (FragmentTag == com.cleanSudoku.cleansodoku.util.FragmentTag.GameComplete.name) {
                         findNavController().navigate(GameCompleteFragmentDirections.actionGameCompleteFragmentToGameFragment())
 
                     }
                 }
                 2 -> {
                     viewModel.startNewGame(Difficulty.Hard)
-                    if (FragmentTag == com.cleanSudoku.cleansodoku.utils.FragmentTag.Title.name) {
+
+                    if (FragmentTag == com.cleanSudoku.cleansodoku.util.FragmentTag.Title.name) {
+
                         findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
 
-                    } else if (FragmentTag == com.cleanSudoku.cleansodoku.utils.FragmentTag.GameComplete.name) {
+                    } else if (FragmentTag == com.cleanSudoku.cleansodoku.util.FragmentTag.GameComplete.name) {
                         findNavController().navigate(GameCompleteFragmentDirections.actionGameCompleteFragmentToGameFragment())
 
                     }
                 }
                 3 -> {
                     viewModel.startNewGame(Difficulty.Insane)
-                    if (FragmentTag == com.cleanSudoku.cleansodoku.utils.FragmentTag.Title.name) {
+
+                    if (FragmentTag == com.cleanSudoku.cleansodoku.util.FragmentTag.Title.name) {
                         findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
 
-                    } else if (FragmentTag == com.cleanSudoku.cleansodoku.utils.FragmentTag.GameComplete.name) {
+                    } else if (FragmentTag == com.cleanSudoku.cleansodoku.util.FragmentTag.GameComplete.name) {
                         findNavController().navigate(GameCompleteFragmentDirections.actionGameCompleteFragmentToGameFragment())
 
                     }

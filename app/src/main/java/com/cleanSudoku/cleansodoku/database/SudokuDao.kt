@@ -13,15 +13,17 @@ interface SudokuDao {
     @Query("SELECT* FROM tb_sudoku_game where  completed=0 ORDER BY id DESC limit 1")
     suspend fun getCurrentGame(): DbSudokuGame?
 
+    @Query("SELECT* FROM tb_sudoku_game where  id=:id and completed=0  limit 1")
+    suspend fun getGameById(id: Long): DbSudokuGame
+
     @Update
-    suspend fun updateGameByObject(game: DbSudokuGame)
+    fun updateGameByObject(game: DbSudokuGame)
 
-    @Query("SELECT id FROM tb_sudoku_game where completed=0 ORDER BY id DESC limit 1")
-    suspend fun getCurrentGameId(): Long
+    @Query("UPDATE tb_sudoku_game SET completed=:isComplete,succeed=:isSuccessful where id=:id")
+    suspend fun updateGameById(id: Long, isComplete: Boolean, isSuccessful: Boolean)
 
-
-    @Query("SELECT* FROM tb_sudoku_game where  id=:id limit 1")
-    suspend fun getCurrentGameById(id: Long): DbSudokuGame?
+    @Query("SELECT id FROM tb_sudoku_game where completed=0 ORDER BY id DESC ")
+    suspend fun getCurrentGameId(): Long?
 
     // statics queries
     @Query("SELECT COUNT(*)FROM tb_sudoku_game where  difficulty=:difficulty ")

@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 //    override fun onNavigateUp(): Boolean {
-//        var navController = findNavController(R.id.nav_host_fragment)
 //
 //        return navController.navigateUp() || super.onNavigateUp()
 //    }
@@ -42,10 +41,6 @@ class MainActivity : AppCompatActivity() {
             android.R.id.home -> {
                 (nav_host_fragment as NavHostFragment).navController.popBackStack()
             }
-//            R.id.menu_theme -> {
-//
-//            }
-
 
         }
         return super.onOptionsItemSelected(item)

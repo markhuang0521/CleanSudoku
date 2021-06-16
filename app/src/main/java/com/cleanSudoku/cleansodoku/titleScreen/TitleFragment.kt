@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.cleanSudoku.cleansodoku.R
 import com.cleanSudoku.cleansodoku.databinding.FragmentTitleBinding
 import com.cleanSudoku.cleansodoku.game.SudokuViewModel
-import com.cleanSudoku.cleansodoku.utils.*
+import com.cleanSudoku.cleansodoku.util.*
 import org.koin.android.ext.android.inject
 
 
@@ -21,12 +21,11 @@ class TitleFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentTitleBinding.inflate(inflater, container, false)
         showBottomNav()
 //        setToolbar(binding.toolbar)
-        showToolbar()
         setToolbarTitle("Clean Sudoku")
 
         setDisplayHomeAsUpEnabled(false)
@@ -39,25 +38,25 @@ class TitleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        viewModel.loadGame()
-        viewModel.gameBoard.observe(viewLifecycleOwner, Observer {
-            viewModel.gameBoard.value?.let {
+        binding.btnContinueGame.setOnClickListener {
+            findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
+        }
+        if (viewModel.gameId.value == null) {
+            viewModel.loadGame()
+        }
+
+        viewModel.gameId.observe(viewLifecycleOwner, Observer {
+            viewModel.gameId.value?.let {
                 binding.btnContinueGame.visibility = View.VISIBLE
-                binding.btnContinueGame.setOnClickListener {
-                    findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
-                }
             }
         })
+
         binding.btnNewGame.setOnClickListener {
             showDifficultyDialogAndStartNewGame(viewModel, FragmentTag.Title.name)
 
         }
     }
 
-
-    private fun showContinueGame(binding: FragmentTitleBinding) {
-
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

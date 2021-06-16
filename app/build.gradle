@@ -92,6 +92,12 @@ dependencies {
     // google ads
     implementation 'com.google.android.gms:play-services-ads:20.1.0'
 
+    // google rating and more
+    implementation("com.google.android.play:core:1.10.0")
+
+    // For Kotlin users also import the Kotlin extensions library for Play Core:
+    implementation("com.google.android.play:core-ktx:1.8.1")
+
     // Logging
     implementation "com.jakewharton.timber:timber:4.7.1"
 

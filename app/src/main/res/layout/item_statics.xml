@@ -3,9 +3,7 @@
 
     <data>
 
-        <variable
-            name="statistics"
-            type="com.cleanSudoku.cleansodoku.statistics.GameStatistics" />
+
 
         <variable
             name="viewModel"
@@ -69,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="16dp"
-                    android:text="@{statistics.totalGame.toString()}"
+                    android:text="@{ viewModel.gameStatistic.totalGame.toString()}"
                     android:textStyle="bold" />
 
                 <View
@@ -100,7 +98,7 @@
                     android:layout_below="@id/underline_game_started"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="16dp"
-                    android:text="@{statistics.totalWin.toString()}"
+                    android:text="@{ viewModel.gameStatistic.totalWin.toString()}"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -135,7 +133,7 @@
                     android:layout_below="@id/underline_games_won"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="12dp"
-                    android:text="@{statistics.winRate}"
+                    android:text="@{ viewModel.gameStatistic.winRate}"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -199,7 +197,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="16dp"
                     tools:text="not available "
-                    android:text="@{statistics.bestTime}"
+                    android:text="@{ viewModel.gameStatistic.bestTime}"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -233,7 +231,7 @@
                     android:layout_below="@id/underline_best_time"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="16dp"
-                    android:text="@{statistics.avgTime}"
+                    android:text="@{ viewModel.gameStatistic.avgTime}"
                     android:textStyle="bold" />
 
             </RelativeLayout>

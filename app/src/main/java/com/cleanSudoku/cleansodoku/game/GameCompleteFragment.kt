@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cleanSudoku.cleansodoku.databinding.FragmentGameCompleteBinding
-import com.cleanSudoku.cleansodoku.utils.FragmentTag
-import com.cleanSudoku.cleansodoku.utils.removeBottomNav
-import com.cleanSudoku.cleansodoku.utils.removeToolbar
-import com.cleanSudoku.cleansodoku.utils.showDifficultyDialogAndStartNewGame
+import com.cleanSudoku.cleansodoku.util.*
 import org.koin.android.ext.android.inject
 
 
@@ -22,11 +19,13 @@ class GameCompleteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentGameCompleteBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
-        removeToolbar()
+        setToolbarTitle()
+        setDisplayHomeAsUpEnabled(false)
+
         removeBottomNav()
         return binding.root
     }

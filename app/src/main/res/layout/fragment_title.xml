@@ -38,11 +38,11 @@
 
 
         <ImageView
-            android:contentDescription="app_icon"
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="81dp"
+            android:layout_marginTop="64dp"
+            android:contentDescription="app_icon"
             android:src="@drawable/sudoku_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

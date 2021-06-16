@@ -17,8 +17,8 @@ data class DbSudokuGame(
     @ColumnInfo(name = "solution_board") var solutionBoard: Array<Array<Cell>>,
     @ColumnInfo(name = "original_board") var originalBoard: Array<Array<Cell>>,
     @ColumnInfo(name = "total_time") var time: Long,
-    @ColumnInfo(name = "completed") var isCompleted: Boolean = false,
-    @ColumnInfo(name = "succeed") var isSucceed: Boolean = false
+    @ColumnInfo(name = "completed") var isCompleted: Boolean,
+    @ColumnInfo(name = "succeed") var isSucceed: Boolean
 
 ) {
     override fun equals(other: Any?): Boolean {

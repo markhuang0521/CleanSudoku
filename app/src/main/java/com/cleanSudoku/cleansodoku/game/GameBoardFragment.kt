@@ -13,7 +13,7 @@ import com.cleanSudoku.cleansodoku.BuildConfig
 import com.cleanSudoku.cleansodoku.R
 import com.cleanSudoku.cleansodoku.databinding.FragmentGameBinding
 import com.cleanSudoku.cleansodoku.settings.Setting
-import com.cleanSudoku.cleansodoku.utils.*
+import com.cleanSudoku.cleansodoku.util.*
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
@@ -38,12 +38,11 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
         binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
-        showToolbar()
-        setToolbarTitle()
-        setHasOptionsMenu(true)
 
         removeBottomNav()
         setDisplayHomeAsUpEnabled(true)
+        setHasOptionsMenu(true)
+
         // ads
 
 
@@ -141,10 +140,6 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
             }
         })
 
-        viewModel.timer.observe(viewLifecycleOwner, Observer {
-
-        })
-
         viewModel.mistakes.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it >= 3) {
@@ -201,7 +196,9 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
                 binding.sudokuBoardView.updateBoard(it, viewModel.solutionBoard.value)
                 if (viewModel.isBoardCompleted()) {
                     viewModel.setTimer(SystemClock.elapsedRealtime() - gameTimer.base)
+
                     viewModel.updateCurrentGame(isCompleted = true, isSucceed = true)
+
                     findNavController().navigate(GameBoardFragmentDirections.actionGameFragmentToGameCompleteFragment())
                 } else {
                     viewModel.updateCurrentGame(isCompleted = false, isSucceed = false)
@@ -227,17 +224,21 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
     override fun onStop() {
         super.onStop()
+
         gameTimer.stop()
+
         viewModel.setTimer(SystemClock.elapsedRealtime() - gameTimer.base)
+        Timber.d("on stop timber stop" + viewModel.timer.value!!.toString())
 
     }
 
 
     override fun onResume() {
         super.onResume()
+        Timber.d(" on resume timber start" + viewModel.timer.value!!.toString())
         gameTimer.base = SystemClock.elapsedRealtime() - viewModel.timer.value!!
-
         gameTimer.start()
+
         if (setting.timer) {
             gameTimer.visibility = View.VISIBLE
         } else {
@@ -250,6 +251,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
     override fun onDestroy() {
         super.onDestroy()
+
         viewModel.mediaPlayer?.release()
         viewModel.mediaPlayer = null
     }
@@ -259,15 +261,17 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
         inflater.inflate(R.menu.game_menu, menu)
     }
 
+    //
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-//            R.id.menu_theme -> {
-//
-//            }
 
             R.id.settingsFragment -> {
                 findNavController().navigate(GameBoardFragmentDirections.actionGameFragmentToSettingsFragment())
+            }
+            android.R.id.home -> {
+                Timber.d("click back button timber start" + (SystemClock.elapsedRealtime() - gameTimer.base).toString())
+
             }
 
 

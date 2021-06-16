@@ -1,8 +1,8 @@
 package com.cleanSudoku.cleansodoku.models
 
-import com.cleanSudoku.cleansodoku.utils.Difficulty
-import com.cleanSudoku.cleansodoku.utils.fullCopy
-import com.cleanSudoku.cleansodoku.utils.randomNumGenerator
+import com.cleanSudoku.cleansodoku.util.Difficulty
+import com.cleanSudoku.cleansodoku.util.fullCopy
+import com.cleanSudoku.cleansodoku.util.randomNumGenerator
 import kotlin.math.sqrt
 
 

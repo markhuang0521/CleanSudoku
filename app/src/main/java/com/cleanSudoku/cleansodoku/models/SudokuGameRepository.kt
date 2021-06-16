@@ -2,14 +2,16 @@ package com.cleanSudoku.cleansodoku.models
 
 import com.cleanSudoku.cleansodoku.database.DbSudokuGame
 import com.cleanSudoku.cleansodoku.database.SudokuDao
-import com.cleanSudoku.cleansodoku.utils.Difficulty
-import com.cleanSudoku.cleansodoku.utils.fullCopy
+import com.cleanSudoku.cleansodoku.util.Difficulty
+import com.cleanSudoku.cleansodoku.util.formatToTimeString
+import com.cleanSudoku.cleansodoku.util.fullCopy
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.text.DecimalFormat
 
-class SudokuGame(
+class SudokuGameRepository(
     private val sudokuDao: SudokuDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
@@ -46,8 +48,22 @@ class SudokuGame(
         sudokuDao.updateGameByObject(game)
     }
 
+    suspend fun updateGameById(id: Long, isComplete: Boolean, isSuccessful: Boolean) = withContext(ioDispatcher) {
+        sudokuDao.updateGameById(id, isComplete, isSuccessful)
+    }
+
     suspend fun saveCurrentGame(dbSudokuGame: DbSudokuGame) =
         withContext(ioDispatcher) { sudokuDao.saveCurrentGame(dbSudokuGame) }
+
+    suspend fun getCurrentGameById(id: Long): DbSudokuGame = withContext(ioDispatcher)
+    {
+        return@withContext sudokuDao.getGameById(id)
+    }
+
+    suspend fun checkCurrentGame(): DbSudokuGame? = withContext(ioDispatcher) {
+        return@withContext sudokuDao.getCurrentGame()
+    }
+
 
     suspend fun loadCurrentGame(): DbSudokuGame? = withContext(ioDispatcher) {
         val currentGame = sudokuDao.getCurrentGame()
@@ -60,7 +76,7 @@ class SudokuGame(
     }
 
 
-    suspend fun getCurrentGameId(): Long = withContext(ioDispatcher) {
+    suspend fun getCurrentGameId(): Long? = withContext(ioDispatcher) {
         return@withContext sudokuDao.getCurrentGameId()
     }
 
@@ -87,6 +103,19 @@ class SudokuGame(
 
     suspend fun getAvgTime(difficulty: String): Long? = withContext(ioDispatcher) {
         return@withContext sudokuDao.getAvgTime(difficulty)
+    }
+
+    suspend fun getGameStatistic(difficulty: String): GameStatistics = withContext(ioDispatcher) {
+        val percentFormat = DecimalFormat("##%")
+        return@withContext GameStatistics(
+            getTotalGame(difficulty).toString(),
+            getTotalWin(difficulty).toString(),
+            percentFormat.format(getWinRate(difficulty)),
+            getBestTime(difficulty).formatToTimeString(),
+            getAvgTime(difficulty).formatToTimeString()
+
+        )
+
     }
 
     fun getCurrentCell(row: Int, col: Int): Cell {
@@ -175,5 +204,7 @@ class SudokuGame(
         println()
 
     }
+
+
 }
 
