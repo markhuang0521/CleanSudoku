@@ -25,7 +25,7 @@ class TitleFragment : Fragment() {
 
         binding = FragmentTitleBinding.inflate(inflater, container, false)
         showBottomNav()
-//        setToolbar(binding.toolbar)
+        showToolbar()
         setToolbarTitle("Clean Sudoku")
 
         setDisplayHomeAsUpEnabled(false)

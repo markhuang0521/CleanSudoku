@@ -39,7 +39,7 @@
         <Preference
             app:icon="@drawable/ic_star_rate"
             app:key="@string/setting_about"
-            app:summary="Developed By MingTheCouchDev (POG!)"
+            app:summary="Developed By MingTheCouchDev "
             app:title="About" />
 
     </PreferenceCategory>

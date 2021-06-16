@@ -31,7 +31,7 @@ enum class ReWardType {
 
 @Parcelize
 enum class Difficulty(val count: Int) : Parcelable {
-    Easy(3), Medium(51), Hard(53), Insane(59)
+    Easy(43), Medium(51), Hard(53), Insane(59)
 }
 
 

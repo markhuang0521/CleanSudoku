@@ -111,7 +111,6 @@ class SudokuViewModel(
         timer.value = 0
         hints.value = 1
         mistakes.value = 0
-        selectedCell.value = null
         gameDifficulty.value = difficulty.name
         viewModelScope.launch {
 
@@ -129,7 +128,6 @@ class SudokuViewModel(
                 isCompleted = false,
                 isSucceed = false
             )
-            Timber.d("checkAndCompleteCurrentGame ${dbSudokuGame.id} " + dbSudokuGame.isSucceed + dbSudokuGame.isCompleted)
 
             sudokuGameRepository.saveCurrentGame(dbSudokuGame)
             gameId.value = sudokuGameRepository.getCurrentGameId()
@@ -172,7 +170,6 @@ class SudokuViewModel(
                         isCompleted = isCompleted,
                         isSucceed = isSucceed
                     )
-                    Timber.d("checkAndCompleteCurrentGame ${game.id} " + game.isSucceed + game.isCompleted)
                     sudokuGameRepository.updateCurrentGame(game)
                     if (isCompleted || isSucceed) {
                         gameId.value = null

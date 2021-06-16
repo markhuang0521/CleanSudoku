@@ -34,7 +34,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
@@ -182,8 +182,13 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
                     }
                 }
-                Timber.d("hints count: ${viewModel.hints.value.toString()}.")
 
+            }
+        })
+
+        viewModel.timer.observe(viewLifecycleOwner, Observer {
+            viewModel.timer.value?.let {
+//                gameTimer.text = it.formatToTimeString()
             }
         })
 
@@ -191,8 +196,8 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
             it?.let {
                 // check if board is completed
                 // update board view with user input and check is current cell correct
-
                 val isCorrect = viewModel.isSelectedCellCorrect()
+
                 binding.sudokuBoardView.updateBoard(it, viewModel.solutionBoard.value)
                 if (viewModel.isBoardCompleted()) {
                     viewModel.setTimer(SystemClock.elapsedRealtime() - gameTimer.base)
@@ -201,6 +206,8 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
                     findNavController().navigate(GameBoardFragmentDirections.actionGameFragmentToGameCompleteFragment())
                 } else {
+
+
                     viewModel.updateCurrentGame(isCompleted = false, isSucceed = false)
 
                 }
@@ -224,18 +231,14 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
     override fun onStop() {
         super.onStop()
-
         gameTimer.stop()
-
         viewModel.setTimer(SystemClock.elapsedRealtime() - gameTimer.base)
-        Timber.d("on stop timber stop" + viewModel.timer.value!!.toString())
 
     }
 
 
     override fun onResume() {
         super.onResume()
-        Timber.d(" on resume timber start" + viewModel.timer.value!!.toString())
         gameTimer.base = SystemClock.elapsedRealtime() - viewModel.timer.value!!
         gameTimer.start()
 
@@ -269,11 +272,6 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
             R.id.settingsFragment -> {
                 findNavController().navigate(GameBoardFragmentDirections.actionGameFragmentToSettingsFragment())
             }
-            android.R.id.home -> {
-                Timber.d("click back button timber start" + (SystemClock.elapsedRealtime() - gameTimer.base).toString())
-
-            }
-
 
         }
         return super.onOptionsItemSelected(item)
