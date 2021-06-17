@@ -111,8 +111,6 @@ class SudokuBoardView(context: Context, attributes: AttributeSet) : View(context
             selectedCellPaint.color = ContextCompat.getColor(context, R.color.purple_500)
 
 
-        } else {
-
         }
     }
 

@@ -48,6 +48,7 @@ class SudokuViewModel(
     var soundPool: SoundPool
     var buttonClickSound: Int
     var hintClickSound: Int
+    val mistakeLimit:Int=10
 
     private val isNoteOn = MutableLiveData<Boolean>(false)
     private var selectedRow = 0
@@ -91,7 +92,7 @@ class SudokuViewModel(
 //        }
     }
 
-    fun checkAndCompleteCurrentGame() {
+    private fun checkAndCompleteCurrentGame() {
         gameId?.let {
             viewModelScope.launch {
                 val currentGame = sudokuGameRepository.checkCurrentGame()
@@ -109,7 +110,7 @@ class SudokuViewModel(
         checkAndCompleteCurrentGame()
 
         timer.value = 0
-        hints.value = 1
+        hints.value = 5
         mistakes.value = 0
         gameDifficulty.value = difficulty.name
         viewModelScope.launch {

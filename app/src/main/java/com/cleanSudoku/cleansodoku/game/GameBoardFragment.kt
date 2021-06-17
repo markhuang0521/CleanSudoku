@@ -38,7 +38,8 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
         binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
-
+        setToolbarTitle("")
+        showToolbar()
         removeBottomNav()
         setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
@@ -74,7 +75,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
                 adRequest,
                 object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Timber.d("Ad was onAdFailedToLoad. ${adError.toString()}")
+                        Timber.d("Ad was onAdFailedToLoad. $adError")
 
                         rewardAd = null
                     }
@@ -142,7 +143,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
 
         viewModel.mistakes.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if (it >= 3) {
+                if (it >= viewModel.mistakeLimit) {
                     AlertDialog.Builder(requireContext())
                         .setTitle("Game Over")
                         .setMessage("Oops, you Got 3 Strikes!")
@@ -233,6 +234,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
         super.onStop()
         gameTimer.stop()
         viewModel.setTimer(SystemClock.elapsedRealtime() - gameTimer.base)
+        viewModel.updateCurrentGame(false, false)
 
     }
 

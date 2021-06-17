@@ -36,5 +36,11 @@ class Setting(private val context: Context) {
             enabled
         ).apply()
 
+    var inAppReview: Boolean
+        get() = preferences.getBoolean(context.getString(R.string.in_app_review), false)
+        set(enabled) = preferenceEditor.putBoolean(
+            context.getString(R.string.in_app_review),
+            enabled
+        ).apply()
 
 }

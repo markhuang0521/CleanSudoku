@@ -2,9 +2,8 @@
     <string name="app_name">Clean SuDoKu</string>
 
     <string name="btn_hint_ads">Watch Ad for 2 More Hints</string>
-    <string name="new_game_dialog_title">Current Game Progress will lost</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_game_dialog_title">Start a New Game</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -23,4 +22,5 @@
     <string name="setting_rating">setting_rating</string>
     <string name="setting_about">setting_about</string>
     <string name="setting">setting</string>
+    <string name="in_app_review">inAppReview</string>
 </resources>

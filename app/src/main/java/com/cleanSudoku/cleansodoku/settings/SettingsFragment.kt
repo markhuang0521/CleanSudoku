@@ -1,5 +1,8 @@
 package com.cleanSudoku.cleansodoku.settings
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +14,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.cleanSudoku.cleansodoku.R
 import com.cleanSudoku.cleansodoku.util.removeBottomNav
 import com.cleanSudoku.cleansodoku.util.setToolbarTitle
-import com.google.android.play.core.review.ReviewManagerFactory
-import timber.log.Timber
+import org.koin.android.ext.android.inject
 
 
 class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
@@ -31,7 +33,7 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
         savedInstanceState: Bundle?
     ): View? {
 
-        setToolbarTitle("Setting")
+        setToolbarTitle("Settings")
         removeBottomNav()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -66,44 +68,47 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
     }
 
     private fun rateThisApp() {
+// review dialog will stop showing after the  initial one regardless of actual review
 
-        Toast.makeText(requireContext(), "rating", Toast.LENGTH_SHORT).show()
-        val manager = ReviewManagerFactory.create(requireContext())
-
-        val request = manager.requestReviewFlow()
-        request.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                // We got the ReviewInfo object
-                val reviewInfo = task.result
-                val flow = manager.launchReviewFlow(requireActivity(), reviewInfo)
-                flow.addOnCompleteListener { _ ->
-                    // The flow has finished. The API does not indicate whether the user
-                    // reviewed or not, or even whether the review dialog was shown. Thus, no
-                    // matter the result, we continue our app flow.
-                }
-            } else {
-                // There was some problem, log or handle the error code.
-                Timber.d(task.exception.toString())
-            }
-        }
-
-//        try {
-//            startActivity(
-//                Intent(
-//                    Intent.ACTION_VIEW,
-//                    Uri.parse("market://details?id=" + requireContext().packageName)
-//                )
-//            )
-//        } catch (e: ActivityNotFoundException) {
-//            Toast.makeText(requireContext(), "Google Play not found!", Toast.LENGTH_SHORT).show()
-//
-//            startActivity(
-//                Intent(
-//                    Intent.ACTION_VIEW,
-//                    Uri.parse("http://play.google.com/store/apps/details?id=" + requireContext().packageName)
-//                )
-//            )
+//        val manager = ReviewManagerFactory.create(requireContext())
+//        val request = manager.requestReviewFlow()
+//        request.addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                // We got the ReviewInfo object
+//                val reviewInfo = task.result
+//                val flow = manager.launchReviewFlow(requireActivity(), reviewInfo)
+//                flow.addOnCompleteListener { _ ->
+//                    setting.inAppReview = true
+//                    // The flow has finished. The API does not indicate whether the user
+//                    // reviewed or not, or even whether the review dialog was shown. Thus, no
+//                    // matter the result, we continue our app flow.
+//                }
+//            } else {
+//                // There was some problem, log or handle the error code.
+//                Timber.d(task.exception.toString())
+//            }
 //        }
+        try {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=" + requireContext().packageName)
+                )
+            )
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(
+                requireContext(),
+                "Google Play not found in this device redirecting to Web!",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + requireContext().packageName)
+                )
+            )
+        }
 
     }
 

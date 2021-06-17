@@ -19,7 +19,8 @@
             app:destination="@id/gameStaticsFragment" />
         <action
             android:id="@+id/action_titleFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -32,7 +33,9 @@
             app:popUpTo="@id/titleFragment" />
         <action
             android:id="@+id/action_gameFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_gameFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
@@ -57,7 +60,8 @@
             app:destination="@id/titleFragment" />
         <action
             android:id="@+id/action_gameStaticsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
