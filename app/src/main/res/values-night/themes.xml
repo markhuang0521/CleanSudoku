@@ -62,6 +62,8 @@
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/purple_500</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+
     </style>
 
     <style name="actionBtnStyle" parent="Widget.AppCompat.TextView">

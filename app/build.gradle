@@ -14,8 +14,8 @@ android {
         applicationId "com.cleanSudoku.cleansodoku"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 2
-        versionName "1.01"
+        versionCode 4
+        versionName "1.03"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -92,6 +92,7 @@
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/darker_blue</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="actionBtnStyle" parent="Widget.AppCompat.TextView">

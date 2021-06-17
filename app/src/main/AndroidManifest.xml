@@ -10,9 +10,9 @@
     <application
         android:name="com.cleanSudoku.cleansodoku.SudokuApp"
         android:allowBackup="false"
-        android:icon="@drawable/sudoku_app_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/sudoku_app_icon"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanSoDoKu">

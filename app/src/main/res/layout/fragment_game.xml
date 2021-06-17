@@ -107,10 +107,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="40dp"
             android:layout_marginEnd="12dp"
             android:orientation="horizontal"
             android:weightSum="4"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_numberDial">
@@ -172,130 +172,290 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
 
             android:id="@+id/layout_numberDial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="12dp"
-            android:orientation="horizontal"
-            android:weightSum="9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sudokuBoardView">
 
             <TextView
-
+                android:id="@+id/text_1"
                 style="@style/numberDialStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-
+                android:backgroundTint="@android:color/transparent"
                 android:gravity="center"
+
                 android:onClick="@{()->viewmodel.updateCellValue(1)}"
-                android:text="1" />
+                android:text="1"
+                app:layout_constraintEnd_toStartOf="@+id/text_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/numberDialStyle"
+                android:gravity="center"
 
+                android:id="@+id/text_2"
+                style="@style/numberDialStyle"
                 android:layout_width="0dp"
 
                 android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
 
-                android:layout_weight="1"
 
-                android:gravity="center"
                 android:onClick="@{()->viewmodel.updateCellValue(2)}"
-                android:text="2" />
+
+
+                android:text="2"
+                app:layout_constraintEnd_toStartOf="@+id/text_3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_1"
+                app:layout_constraintTop_toTopOf="@id/text_1"
+                tools:layout_editor_absoluteY="3dp" />
 
             <TextView
+                android:id="@+id/text_3"
+
                 style="@style/numberDialStyle"
 
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
 
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+
+                android:backgroundTint="@android:color/transparent"
 
                 android:gravity="center"
+
                 android:onClick="@{()->viewmodel.updateCellValue(3)}"
-                android:text="3" />
+                android:text="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_2"
+                app:layout_constraintTop_toTopOf="@id/text_1"
+                tools:layout_editor_absoluteY="3dp" />
 
             <TextView
+                android:id="@+id/text_4"
                 style="@style/numberDialStyle"
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
 
                 android:gravity="center"
                 android:onClick="@{()->viewmodel.updateCellValue(4)}"
-                android:text="4" />
+                android:text="4"
+                app:layout_constraintEnd_toStartOf="@+id/text_5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_1" />
 
             <TextView
+                android:id="@+id/text_5"
                 style="@style/numberDialStyle"
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
 
-                android:layout_weight="1"
-
-                android:gravity="center"
+                android:backgroundTint="@android:color/transparent"
                 android:onClick="@{()->viewmodel.updateCellValue(5)}"
-                android:text="5" />
+                android:text="5"
+                app:layout_constraintEnd_toStartOf="@+id/text_6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_4"
+                app:layout_constraintTop_toTopOf="@+id/text_4" />
 
             <TextView
+                android:id="@+id/text_6"
                 style="@style/numberDialStyle"
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
 
-                android:gravity="center"
                 android:onClick="@{()->viewmodel.updateCellValue(6)}"
-                android:text="6" />
+                android:text="6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_5"
+                app:layout_constraintTop_toTopOf="@+id/text_4" />
 
             <TextView
+                android:id="@+id/text_7"
                 style="@style/numberDialStyle"
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
 
-                android:gravity="center"
                 android:onClick="@{()->viewmodel.updateCellValue(7)}"
-                android:text="7" />
+                android:text="7"
+                app:layout_constraintEnd_toStartOf="@+id/text_8"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_4" />
 
             <TextView
+                android:id="@+id/text_8"
                 style="@style/numberDialStyle"
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
 
-                android:gravity="center"
                 android:onClick="@{()->viewmodel.updateCellValue(8)}"
-                android:text="8" />
+                android:text="8"
+                app:layout_constraintEnd_toStartOf="@+id/text_9"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_7"
+                app:layout_constraintTop_toTopOf="@+id/text_7" />
 
             <TextView
+                android:id="@+id/text_9"
                 style="@style/numberDialStyle"
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
+                android:backgroundTint="@android:color/transparent"
+
                 android:onClick="@{()->viewmodel.updateCellValue(9)}"
-                android:text="9" />
+                android:text="9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_8"
+                app:layout_constraintTop_toTopOf="@+id/text_7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        <androidx.appcompat.widget.LinearLayoutCompat-->
+
+        <!--            android:id="@+id/layout_numberDial"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="bottom"-->
+        <!--            android:layout_marginStart="12dp"-->
+        <!--            android:layout_marginTop="40dp"-->
+        <!--            android:layout_marginEnd="12dp"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:weightSum="9"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/sudokuBoardView">-->
+
+        <!--            <TextView-->
+
+        <!--                style="@style/numberDialStyle"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+
+        <!--                android:gravity="center"-->
+        <!--                android:onClick="@{()->viewmodel.updateCellValue(1)}"-->
+        <!--                android:text="1" />-->
+
+        <!--            <TextView-->
+        <!--                style="@style/numberDialStyle"-->
+
+        <!--                android:layout_width="0dp"-->
+
+        <!--                android:layout_height="wrap_content"-->
+
+        <!--                android:layout_weight="1"-->
+
+        <!--                android:gravity="center"-->
+        <!--                android:onClick="@{()->viewmodel.updateCellValue(2)}"-->
+        <!--                android:text="2" />-->
+
+        <!--            <TextView-->
+        <!--                style="@style/numberDialStyle"-->
+
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+
+        <!--                android:layout_weight="1"-->
+
+        <!--                android:gravity="center"-->
+        <!--                android:onClick="@{()->viewmodel.updateCellValue(3)}"-->
+        <!--                android:text="3" />-->
+
+        <!--            <TextView-->
+        <!--                style="@style/numberDialStyle"-->
+
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+
+        <!--                android:layout_weight="1"-->
+
+        <!--                android:gravity="center"-->
+        <!--                android:onClick="@{()->viewmodel.updateCellValue(4)}"-->
+        <!--                android:text="4" />-->
+
+        <!--            <TextView-->
+        <!--                style="@style/numberDialStyle"-->
+
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+
+        <!--                android:layout_weight="1"-->
+
+        <!--                android:gravity="center"-->
+        <!--                android:onClick="@{()->viewmodel.updateCellValue(5)}"-->
+        <!--                android:text="5" />-->
+
+        <!--            <TextView-->
+        <!--                style="@style/numberDialStyle"-->
+
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+
+        <!--                android:layout_weight="1"-->
+
+        <!--                android:gravity="center"-->
+        <!--                android:onClick="@{()->viewmodel.updateCellValue(6)}"-->
+        <!--                android:text="6" />-->
+
+        <!--            <TextView-->
+        <!--                style="@style/numberDialStyle"-->
+
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+
+        <!--                android:layout_weight="1"-->
+
+        <!--                android:gravity="center"-->
+        <!--                android:onClick="@{()->viewmodel.updateCellValue(7)}"-->
+        <!--                android:text="7" />-->
+
+        <!--            <TextView-->
+        <!--                style="@style/numberDialStyle"-->
+
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+
+        <!--                android:layout_weight="1"-->
+
+        <!--                android:gravity="center"-->
+        <!--                android:onClick="@{()->viewmodel.updateCellValue(8)}"-->
+        <!--                android:text="8" />-->
+
+        <!--            <TextView-->
+        <!--                style="@style/numberDialStyle"-->
+
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:fontFamily="@font/roboto"-->
+        <!--                android:gravity="center"-->
+        <!--                android:onClick="@{()->viewmodel.updateCellValue(9)}"-->
+        <!--                android:text="9" />-->
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        <!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
 
         <!--        <FrameLayout-->
         <!--            android:id="@+id/banner_ad"-->

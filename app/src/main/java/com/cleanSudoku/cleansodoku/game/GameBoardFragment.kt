@@ -146,7 +146,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
                 if (it >= viewModel.mistakeLimit) {
                     AlertDialog.Builder(requireContext())
                         .setTitle("Game Over")
-                        .setMessage("Oops, you Got 3 Strikes!")
+                        .setMessage("Oops, you Got 10 Strikes!")
                         .setPositiveButton("Second Chance (Ad)") { dialog, i ->
                             //show add
                             showRewardAd(ReWardType.Mistake)
