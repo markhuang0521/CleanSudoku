@@ -56,12 +56,15 @@
             <TextView
                 android:id="@+id/tv_difficulty"
                 style="@style/subHeadingStyle"
-
                 android:layout_width="0dp"
-
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+
+                android:drawableStart="@drawable/ic_difficulty"
+
+                android:drawablePadding="5dp"
+                android:gravity="left"
+                android:paddingStart="30dp"
                 android:text="@{viewmodel.gameDifficulty}"
                 tools:text="EASY" />
 
@@ -71,9 +74,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="@{`Mistakes: `+viewmodel.mistakes.toString() +`/`+viewmodel.mistakeLimit}"
-                tools:text="Mistakes: 0/3" />
+                android:drawableStart="@drawable/ic_skull"
+                android:drawablePadding="8dp"
+                android:gravity="left"
+                android:paddingStart="40dp"
+                android:text="@{viewmodel.mistakes.toString() +`/`+viewmodel.mistakeLimit}"
+                tools:text=" 0/3" />
 
             <Chronometer
 
@@ -199,14 +205,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:gravity="center"
-
                 android:id="@+id/text_2"
+
                 style="@style/numberDialStyle"
                 android:layout_width="0dp"
-
                 android:layout_height="wrap_content"
+
                 android:backgroundTint="@android:color/transparent"
+                android:gravity="center"
 
 
                 android:onClick="@{()->viewmodel.updateCellValue(2)}"

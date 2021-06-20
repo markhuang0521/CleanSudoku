@@ -234,7 +234,7 @@ class GameBoardFragment : Fragment(), SudokuBoardView.OnTouchListener {
         super.onStop()
         gameTimer.stop()
         viewModel.setTimer(SystemClock.elapsedRealtime() - gameTimer.base)
-        viewModel.updateCurrentGame(false, false)
+//        viewModel.updateCurrentGame(false, false)
 
     }
 
